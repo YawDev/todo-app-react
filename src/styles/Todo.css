@@ -1,0 +1,248 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: #f4f4f4;
+}
+
+.todo-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .todo-container {
+    padding: 15px;
+  }
+}
+
+.wrapperTitle {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.todo-item {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-section {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemListWrapper {
+  justify-content: space-between;
+}
+
+.buttonSection {
+  justify-content: space-between;
+}
+
+.edit-btn {
+  background-color: rgb(147, 147, 147);
+  color: white;
+  border-radius: 2px;
+  font-weight: bold;
+  border: transparent;
+  margin-left: 2px;
+}
+
+.edit-btn:hover {
+  background-color: rgb(205, 205, 205);
+  color: rgb(0, 0, 0);
+}
+
+.delete-btn {
+  background-color: rgb(223, 23, 23);
+  color: white;
+  font-weight: bold;
+  border-radius: 2px;
+  border: transparent;
+  margin-left: 2px;
+}
+
+.delete-btn:hover {
+  background-color: rgb(230, 84, 84);
+  color: rgb(0, 0, 0);
+}
+
+.add-btn {
+  background-color: rgb(20, 184, 69);
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 2px;
+  border: transparent;
+  margin-left: 2px;
+}
+
+.add-btn:hover {
+  background-color: rgb(114, 233, 146);
+  color: rgb(0, 0, 0);
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-body {
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.mt-4 {
+  margin-top: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f8f9fa;
+}
+
+.mb-3 {
+  margin-bottom: 15px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+}
+
+.modal-footer .btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #495057;
+}
+
+.modal-dialog {
+  max-width: 500px;
+  width: 100%;
+}
+
+.sideBarNav {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  height: 100%;
+  background-color: #333; /* Dark grey background */
+  color: white; /* White text color */
+  padding-top: 20px;
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
+  transition: left 0.3s ease-in-out;
+}
+
+.sideBarNav.open {
+  left: 0;
+}
+
+.sideBarNav ul {
+  list-style-type: none;
+  padding: 0;
+  display: none; /* Hide the links when collapsed */
+}
+
+.sideBarNav.open ul {
+  display: block; /* Show the links when expanded */
+}
+
+.sideBarNav ul li {
+  padding: 10px;
+}
+
+.sideBarNav ul li a {
+  color: white; /* White text color */
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  font-weight: bold; /* Bold text */
+}
+
+.sideBarNav ul li a:hover {
+  background-color: #555; /* Darker grey background on hover */
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: -35px;
+  background-color: #333; /* Dark grey background to match the sidebar */
+  color: white; /* White text for the button */
+  padding: 10px;
+  border: 2px solid #444; /* Darker border around the button */
+  font-size: 24px;
+  cursor: pointer;
+  transition: right 0.3s ease-in-out;
+}
+
+.sideBarNav.open .toggle-btn {
+  right: -35px;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.sideBarNav.open ~ .content {
+  margin-left: 0;
+}
