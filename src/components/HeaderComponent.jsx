@@ -1,12 +1,15 @@
 import ButtonComponent from "./ButtonComponent";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddModalCompononent from "./AddModalComponent";
-import { todoList } from "../App";
 
-export default function HeaderComponent() {
+export default function HeaderComponent({ todoList, setTodoList }) {
   const [showModal, setShowModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+
+  useEffect(() => {
+    console.log(todoList); // Log todoList when it changes
+  }, [todoList]);
 
   const handleClose = () => {
     setShowModal(false);
@@ -28,12 +31,15 @@ export default function HeaderComponent() {
     if (isEditMode && taskToEdit) {
       //
     } else {
-      todoList.push({
-        id: todoList.length + 1,
-        title: title,
-        description: description,
-        isCompleted: false,
-      });
+      setTodoList([
+        ...todoList,
+        {
+          id: todoList.length + 1,
+          title: title,
+          description: description,
+          isCompleted: false,
+        },
+      ]);
     }
     handleClose();
   };

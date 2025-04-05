@@ -18,19 +18,27 @@ export default function AddModalCompononent({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [IsValid, setIsValid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!show) {
       setTitle("");
       setDescription("");
       setIsValid(false);
+      setErrorMessage("");
     }
   }, [show]);
 
   const titleOnChange = (e) => {
     const input = e.target.value;
     setTitle(input);
-    setIsValid(Validate(input));
+    if (!input) {
+      setErrorMessage("Title is required");
+      setIsValid(false);
+    } else {
+      setErrorMessage("");
+      setIsValid(Validate(input));
+    }
   };
 
   const descriptionOnChange = (e) => {
@@ -58,6 +66,9 @@ export default function AddModalCompononent({
             placeholder="Add Title"
             onChange={titleOnChange}
           />
+          {errorMessage && (
+            <div style={{ color: "red", fontSize: "12px" }}>{errorMessage}</div>
+          )}
         </div>
         <label htmlFor="Description">Description</label>
 
