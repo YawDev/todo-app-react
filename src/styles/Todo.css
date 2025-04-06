@@ -9,9 +9,9 @@ body {
 }
 
 .todo-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
+  width: 140%;
+  max-width: 500px;
+  padding: 25px;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 8px;
@@ -183,7 +183,7 @@ input[type="text"] {
   left: -200px;
   width: 200px;
   height: 100%;
-  background-color: #333; /* Dark grey background */
+  background-color: #526a99; /* Dark grey background */
   color: white; /* White text color */
   padding-top: 20px;
   box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
@@ -217,17 +217,17 @@ input[type="text"] {
 }
 
 .sideBarNav ul li a:hover {
-  background-color: #555; /* Darker grey background on hover */
+  background-color: #2f3d57; /* Darker grey background on hover */
 }
 
 .toggle-btn {
   position: absolute;
   top: 10px;
   right: -35px;
-  background-color: #333; /* Dark grey background to match the sidebar */
-  color: white; /* White text for the button */
+  background-color: #526a99; /* Dark grey background to match the sidebar */
+  color: rgb(255, 255, 255); /* White text for the button */
   padding: 10px;
-  border: 2px solid #444; /* Darker border around the button */
+  border: 2px solid #526a99; /* Darker border around the button */
   font-size: 24px;
   cursor: pointer;
   transition: right 0.3s ease-in-out;
