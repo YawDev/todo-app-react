@@ -1,13 +1,13 @@
 import ButtonComponent from "./ButtonComponent";
 import { Trash, Pencil } from "react-bootstrap-icons";
 
-export default function ButtonSection() {
+export default function ButtonSection({ deleteAction, editAction }) {
   return (
     <section className="btnSection">
-      <ButtonComponent btn="edit-btn">
+      <ButtonComponent onAction={editAction} btn="edit-btn">
         <Pencil />
       </ButtonComponent>
-      <ButtonComponent btn="delete-btn">
+      <ButtonComponent onAction={deleteAction} btn="delete-btn">
         <Trash />
       </ButtonComponent>
     </section>

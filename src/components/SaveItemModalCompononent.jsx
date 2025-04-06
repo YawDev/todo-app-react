@@ -8,7 +8,7 @@ const Validate = (title) => {
   return true;
 };
 
-export default function AddModalCompononent({
+export default function SaveItemModalCompononent({
   show,
   handleClose,
   handleSubmit,

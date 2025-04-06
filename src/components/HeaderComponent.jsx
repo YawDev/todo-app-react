@@ -1,6 +1,7 @@
 import ButtonComponent from "./ButtonComponent";
 import React, { useState, useEffect } from "react";
-import AddModalCompononent from "./AddModalComponent";
+import SaveItemModalCompononent from "./SaveItemModalCompononent";
+import { v4 as uuidv4 } from "uuid";
 
 export default function HeaderComponent({ todoList, setTodoList }) {
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +35,7 @@ export default function HeaderComponent({ todoList, setTodoList }) {
       setTodoList([
         ...todoList,
         {
-          id: todoList.length + 1,
+          id: uuidv4(),
           title: title,
           description: description,
           isCompleted: false,
@@ -60,7 +61,7 @@ export default function HeaderComponent({ todoList, setTodoList }) {
       <ButtonComponent btn="add-btn" onAction={handleAddBtnClick}>
         New Task
       </ButtonComponent>
-      <AddModalCompononent
+      <SaveItemModalCompononent
         show={showModal}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
