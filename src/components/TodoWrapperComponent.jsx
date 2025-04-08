@@ -3,10 +3,16 @@ import TodoItemSection from "./TodoItemSection";
 import DeleteConfirmationModalCompononent from "./DeleteConfirmationComponent";
 import { useState } from "react";
 import PaginationComponent from "./Pagination";
+import SaveItemModalCompononent from "./SaveItemModalCompononent";
 
 export default function TodoWrapperComponent({ todoList, setTodoList }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
@@ -41,6 +47,32 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
     setShowDeleteModal(false);
     setTaskToDelete(null);
   };
+
+  const handleClose = () => {
+    setShowEditModal(false);
+    setIsEditMode(false);
+    setTaskToEdit(null);
+  };
+
+  const handleEditRequest = (task) => {
+    setTaskToEdit(task);
+    setIsEditMode(true);
+    setShowEditModal(true);
+    console.log("task", task);
+  };
+
+  const handleEditSubmit = (title, description) => {
+    setTodoList(
+      todoList.map((task) =>
+        task.id === taskToEdit.id
+          ? { ...task, title: title, description: description }
+          : task
+      )
+    );
+
+    handleClose();
+  };
+
   return (
     <div className="todo-container">
       <h1 className="wrapperTitle"> Todo List</h1>
@@ -48,6 +80,7 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
       <TodoItemSection
         todoList={currentData}
         handleDeleteRequest={handleDeleteRequest}
+        handleEditRequest={handleEditRequest}
       />
       <PaginationComponent
         totalItems={todoList.length}
@@ -59,6 +92,13 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
         handleClose={cancelDelete}
         handleConfirmDelete={confirmDelete}
         taskToDelete={taskToDelete}
+      />
+      <SaveItemModalCompononent
+        show={showEditModal}
+        handleClose={handleClose}
+        handleSubmit={handleEditSubmit}
+        isEditMode={isEditMode}
+        taskToEdit={taskToEdit}
       />
     </div>
   );

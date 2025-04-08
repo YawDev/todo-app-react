@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/NavBar.css";
 
 const SideNavBarComponent = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -13,9 +14,6 @@ const SideNavBarComponent = () => {
         ☰
       </button>
       <ul>
-        <li>
-          <a href="#">Home</a>
-        </li>
         <li>
           <a href="#">Register</a>
         </li>
