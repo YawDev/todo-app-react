@@ -3,7 +3,12 @@ import React, { useState, useEffect } from "react";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
 import { v4 as uuidv4 } from "uuid";
 
-export default function HeaderComponent({ todoList, setTodoList }) {
+export default function HeaderComponent({
+  todoList,
+  setTodoList,
+  handleQueryChange,
+  searchTerm,
+}) {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -41,6 +46,7 @@ export default function HeaderComponent({ todoList, setTodoList }) {
         type="text"
         name="inputBox"
         className="inputBox"
+        onChange={handleQueryChange}
         placeholder="Filter tasks"
       />
       <ButtonComponent btn="add-btn" onAction={handleAddBtnClick}>
