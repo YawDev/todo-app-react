@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function HeaderComponent({ todoList, setTodoList }) {
   const [showModal, setShowModal] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState(null);
 
   useEffect(() => {
     console.log(todoList); // Log todoList when it changes
@@ -14,34 +12,21 @@ export default function HeaderComponent({ todoList, setTodoList }) {
 
   const handleClose = () => {
     setShowModal(false);
-    setIsEditMode(false);
-    setTaskToEdit(null);
   };
   const handleShow = (task = null) => {
     setShowModal(true);
-    if (task) {
-      setIsEditMode(true); // Edit mode
-      setTaskToEdit(task);
-    } else {
-      setIsEditMode(false); // Add mode
-      setTaskToEdit(null);
-    }
   };
 
   const handleSubmit = (title, description) => {
-    if (isEditMode && taskToEdit) {
-      //
-    } else {
-      setTodoList([
-        ...todoList,
-        {
-          id: uuidv4(),
-          title: title,
-          description: description,
-          isCompleted: false,
-        },
-      ]);
-    }
+    setTodoList([
+      ...todoList,
+      {
+        id: uuidv4(),
+        title: title,
+        description: description,
+        isCompleted: false,
+      },
+    ]);
     handleClose();
   };
 
@@ -65,8 +50,8 @@ export default function HeaderComponent({ todoList, setTodoList }) {
         show={showModal}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
-        isEditMode={isEditMode}
-        taskToEdit={taskToEdit}
+        isEditMode={false}
+        taskToEdit={null}
       />
     </div>
   );

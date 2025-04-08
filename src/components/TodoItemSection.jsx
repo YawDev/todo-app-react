@@ -1,6 +1,10 @@
 import TodoItemComponent from "./TodoItemComponent";
 
-export default function TodoItemSection({ todoList, handleDeleteRequest }) {
+export default function TodoItemSection({
+  todoList,
+  handleDeleteRequest,
+  handleEditRequest,
+}) {
   return (
     <div className="itemListWrapper">
       {todoList.length === 0 ? (
@@ -12,6 +16,7 @@ export default function TodoItemSection({ todoList, handleDeleteRequest }) {
               key={task.id}
               todoItemId={task.id}
               handleDeleteRequest={handleDeleteRequest}
+              handleEditRequest={handleEditRequest}
             >
               {task}
             </TodoItemComponent>

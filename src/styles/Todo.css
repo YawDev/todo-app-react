@@ -1,15 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Exo 2", sans-serif;
   background-color: #f4f4f4;
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Exo 2", sans-serif;
+}
+
 .todo-container {
-  width: 140%;
+  width: 100%;
   max-width: 500px;
   padding: 25px;
   box-sizing: border-box;
@@ -17,6 +24,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  font-family: "Exo 2", sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -26,7 +34,7 @@ body {
 }
 
 .wrapperTitle {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 
 .todo-item {
@@ -101,6 +109,7 @@ body {
 
 .modal-content {
   padding: 20px;
+  font-family: "Exo 2", sans-serif;
 }
 
 .modal-body {
@@ -175,74 +184,4 @@ input[type="text"] {
 .modal-dialog {
   max-width: 500px;
   width: 100%;
-}
-
-.sideBarNav {
-  position: fixed;
-  top: 0;
-  left: -200px;
-  width: 200px;
-  height: 100%;
-  background-color: #526a99; /* Dark grey background */
-  color: white; /* White text color */
-  padding-top: 20px;
-  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
-  transition: left 0.3s ease-in-out;
-}
-
-.sideBarNav.open {
-  left: 0;
-}
-
-.sideBarNav ul {
-  list-style-type: none;
-  padding: 0;
-  display: none; /* Hide the links when collapsed */
-}
-
-.sideBarNav.open ul {
-  display: block; /* Show the links when expanded */
-}
-
-.sideBarNav ul li {
-  padding: 10px;
-}
-
-.sideBarNav ul li a {
-  color: white; /* White text color */
-  text-decoration: none;
-  display: block;
-  padding: 10px;
-  font-weight: bold; /* Bold text */
-}
-
-.sideBarNav ul li a:hover {
-  background-color: #2f3d57; /* Darker grey background on hover */
-}
-
-.toggle-btn {
-  position: absolute;
-  top: 10px;
-  right: -35px;
-  background-color: #526a99; /* Dark grey background to match the sidebar */
-  color: rgb(255, 255, 255); /* White text for the button */
-  padding: 10px;
-  border: 2px solid #526a99; /* Darker border around the button */
-  font-size: 24px;
-  cursor: pointer;
-  transition: right 0.3s ease-in-out;
-}
-
-.sideBarNav.open .toggle-btn {
-  right: -35px;
-}
-
-.content {
-  margin-left: 220px;
-  padding: 20px;
-  transition: margin-left 0.3s ease-in-out;
-}
-
-.sideBarNav.open ~ .content {
-  margin-left: 0;
 }

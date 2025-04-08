@@ -3,6 +3,7 @@ import TodoWrapperComponent from "./components/TodoWrapperComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SideNavBarComponent from "./components/SideNavBarComponent";
 import { useState } from "react";
+import FooterComponent from "./components/FooterComponent";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -10,6 +11,7 @@ function App() {
     <>
       <SideNavBarComponent />
       <TodoWrapperComponent todoList={todoList} setTodoList={setTodoList} />
+      <FooterComponent />
     </>
   );
 }

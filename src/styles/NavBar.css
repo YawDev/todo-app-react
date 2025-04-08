@@ -1,0 +1,76 @@
+.sideBarNav {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  font-family: "Exo 2", sans-serif;
+
+  height: 100%;
+  background-color: #2d343f; /* Dark grey */
+  color: white;
+  padding-top: 20px;
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out;
+}
+
+.sideBarNav.open {
+  left: 0;
+}
+
+.sideBarNav ul {
+  list-style-type: none;
+  padding: 0;
+  display: none;
+}
+
+.sideBarNav.open ul {
+  display: block;
+}
+
+.sideBarNav ul li {
+  padding: 10px;
+}
+
+.sideBarNav ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.sideBarNav ul li a:hover {
+  background-color: #444950; /* Slightly lighter grey to complement the sidebar */
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: -35px;
+  background-color: #2d343f; /* Matching dark grey */
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  border: 2px solid #2d343f; /* Matching border */
+  font-size: 24px;
+  cursor: pointer;
+  transition: right 0.3s ease-in-out;
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn:hover {
+  background-color: #444950; /* Slightly lighter grey to complement the sidebar */
+}
+
+.sideBarNav.open .toggle-btn {
+  right: -35px;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.sideBarNav.open ~ .content {
+  margin-left: 0;
+}

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import ButtonComponent from "./ButtonComponent";
 import ButtonSection from "./ButtonSection";
 
@@ -5,6 +6,7 @@ export default function TodoItemComponent({
   todoItemId,
   children,
   handleDeleteRequest,
+  handleEditRequest,
 }) {
   return (
     <div className="todo-item">
@@ -13,10 +15,18 @@ export default function TodoItemComponent({
       {children.title}
       <ButtonSection
         deleteAction={() =>
-          handleDeleteRequest({ id: todoItemId, title: children.title })
+          handleDeleteRequest({
+            id: todoItemId,
+            title: children.title,
+            description: children.description,
+          })
         }
         editAction={() => {
-          alert("edited!");
+          handleEditRequest({
+            id: todoItemId,
+            title: children.title,
+            description: children.description,
+          });
         }}
       />
     </div>

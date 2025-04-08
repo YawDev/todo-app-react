@@ -2,7 +2,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 const Validate = (title) => {
-  if (!title) {
+  if (!title || !title.trim()) {
     return false;
   }
   return true;
@@ -26,13 +26,17 @@ export default function SaveItemModalCompononent({
       setDescription("");
       setIsValid(false);
       setErrorMessage("");
+    } else if (isEditMode && taskToEdit) {
+      setTitle(taskToEdit.title);
+      setDescription(taskToEdit.description || "");
+      setIsValid(Validate(taskToEdit.title));
     }
-  }, [show]);
+  }, [show, isEditMode, taskToEdit]);
 
   const titleOnChange = (e) => {
     const input = e.target.value;
     setTitle(input);
-    if (!input) {
+    if (!input.trim()) {
       setErrorMessage("Title is required");
       setIsValid(false);
     } else {
@@ -43,13 +47,17 @@ export default function SaveItemModalCompononent({
 
   const descriptionOnChange = (e) => {
     setDescription(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleSubmitModal = (e) => {
     e.preventDefault();
-    if (Validate(title)) handleSubmit(title, description);
+    if (isEditMode && Validate(title)) {
+      handleSubmit(title, description, isEditMode, taskToEdit);
+    } else if (Validate(title)) {
+      handleSubmit(title, description, false, null);
+    }
   };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -63,6 +71,7 @@ export default function SaveItemModalCompononent({
             type="text"
             name="Title"
             id="title"
+            value={title}
             placeholder="Add Title"
             onChange={titleOnChange}
           />
@@ -78,6 +87,7 @@ export default function SaveItemModalCompononent({
             name="Description"
             id="description"
             placeholder="Add Description"
+            value={description}
             onChange={descriptionOnChange}
           />
         </div>
