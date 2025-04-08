@@ -86,6 +86,7 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
         totalItems={todoList.length}
         itemsPerPage={itemsPerPage}
         setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
       />
       <DeleteConfirmationModalCompononent
         show={showDeleteModal}

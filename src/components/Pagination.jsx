@@ -1,7 +1,12 @@
 import React from "react";
 import "../styles/Pagination.css";
 
-const PaginationComponent = ({ totalItems, itemsPerPage, setCurrentPage }) => {
+const PaginationComponent = ({
+  totalItems,
+  itemsPerPage,
+  setCurrentPage,
+  currentPage,
+}) => {
   let pages = [];
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
@@ -13,7 +18,7 @@ const PaginationComponent = ({ totalItems, itemsPerPage, setCurrentPage }) => {
       {pages.map((page, index) => {
         return (
           <button
-            className="paginationBtn"
+            className={`paginationBtn ${currentPage === page ? "active" : ""}`}
             key={index}
             onClick={() => setCurrentPage(page)}
           >
