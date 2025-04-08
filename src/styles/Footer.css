@@ -1,5 +1,5 @@
 .footerSection {
-  background-color: #444a58;
+  background-color: #525f75;
   color: white;
   text-align: center;
   padding: 20px;
@@ -8,7 +8,7 @@
   left: 0;
   width: 100%;
   font-size: 14px;
-  border-top: 1px solid #5e5d5d;
+  border-top: 1px solid #525f75;
   margin-top: 30px;
   font-family: "Exo 2", sans-serif;
 }
