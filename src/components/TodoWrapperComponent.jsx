@@ -6,6 +6,7 @@ import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
 
 export default function TodoWrapperComponent({ todoList, setTodoList }) {
+  const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
@@ -16,9 +17,13 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
+  const filteredTodoList = todoList.filter((todo) =>
+    todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
-  const currentData = todoList.slice(firstItemIndex, lastItemIndex);
+  const currentData = filteredTodoList.slice(firstItemIndex, lastItemIndex);
 
   const confirmDelete = () => {
     const updatedTodoList = todoList.filter(
@@ -73,17 +78,28 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
     handleClose();
   };
 
+  const handleQueryChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
   return (
     <div className="todo-container">
       <h1 className="wrapperTitle"> Todo List</h1>
-      <HeaderComponent todoList={todoList} setTodoList={setTodoList} />
+      <HeaderComponent
+        todoList={todoList}
+        setTodoList={setTodoList}
+        handleQueryChange={handleQueryChange}
+        searchTerm={searchTerm}
+      />
       <TodoItemSection
         todoList={currentData}
         handleDeleteRequest={handleDeleteRequest}
         handleEditRequest={handleEditRequest}
+        searchTerm={searchTerm}
       />
       <PaginationComponent
-        totalItems={todoList.length}
+        totalItems={filteredTodoList.length}
         itemsPerPage={itemsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}

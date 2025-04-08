@@ -4,11 +4,14 @@ export default function TodoItemSection({
   todoList,
   handleDeleteRequest,
   handleEditRequest,
+  searchTerm,
 }) {
+  const isSearchActive = searchTerm.trim() !== "";
+
   return (
     <div className="itemListWrapper">
       {todoList.length === 0 ? (
-        <p>Empty List</p>
+        <p>{isSearchActive ? "No results found" : "Empty List"}</p>
       ) : (
         <>
           {todoList.map((task) => (
