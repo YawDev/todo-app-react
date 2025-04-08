@@ -26,9 +26,9 @@
   color: rgb(208, 208, 208);
 }
 
-.paginationBtn button.active {
+.paginationBtn.active {
   font-weight: 900;
-  border-color: black;
+  border-color: transparent;
   background: #ffe400;
   color: #101010;
 }
