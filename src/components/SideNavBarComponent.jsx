@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/NavBar.css";
 
 const SideNavBarComponent = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
