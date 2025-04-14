@@ -1,7 +1,7 @@
 import HeaderComponent from "./HeaderComponent";
 import TodoItemSection from "./TodoItemSection";
 import DeleteConfirmationModalCompononent from "./DeleteConfirmationComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
 
@@ -82,6 +82,10 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
     setSearchTerm(e.target.value);
     setCurrentPage(1);
   };
+
+  useEffect(() => {
+    setSearchTerm("");
+  }, [todoList]);
 
   return (
     <div className="todo-container">

@@ -1,0 +1,48 @@
+import { Button, Container } from "react-bootstrap";
+
+function RegistrationForm() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <div className="form-container-signUp">
+      <form className="mt-4" onSubmit={handleSubmit}>
+        <h2 id="signUpTitle">Sign Up</h2>
+
+        <div className="mb-3">
+          <label htmlFor="firstname" className="form-label">
+            Username
+          </label>
+          <input type="text" className="form-control" id="firstName" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="lastname" className="form-label">
+            Password
+          </label>
+          <input type="text" className="form-control" id="lastName" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">
+            Email address
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" className="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+
+        <Button type="submit" variant="primary">
+          Submit
+        </Button>
+      </form>
+    </div>
+  );
+}
+
+export default RegistrationForm;
