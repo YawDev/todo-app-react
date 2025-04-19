@@ -1,7 +1,11 @@
 import { Button, Form } from "react-bootstrap";
 import { LoginAPI } from "../utils/GoServiceAuth";
+import { useNavigate } from "react-router-dom";
+import logoImg from "../assets/react.svg";
 
-export default function LoginForm() {
+export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -10,16 +14,23 @@ export default function LoginForm() {
         Password: e.target.password.value,
       };
       const data = await LoginAPI(user);
-      console.log(data);
-      alert("Login Success: " + data.status);
+      setIsLoggedIn(true);
+      navigate("/todos");
     } catch (error) {
-      console.log("Login failed");
+      console.log("Login failed", error);
     }
   };
-  return (
+  console.log(isLoggedIn, "khj");
+
+  if (isLoggedIn) return;
+  return isLoggedIn ? (
+    <div>You are logged in </div>
+  ) : (
     <div className="form-container">
       <Form onSubmit={handleLogin}>
-        <h4 className="mb-4 text-center">Login</h4>
+        <h4 className="mb-4 text-center">
+          Login <img src={logoImg} />{" "}
+        </h4>
 
         <Form.Group className="mb-3" controlId="username">
           <Form.Label>Username</Form.Label>
@@ -29,6 +40,11 @@ export default function LoginForm() {
         <Form.Group className="mb-4" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Enter password" />
+        </Form.Group>
+
+        <Form.Group controlId="">
+          <input type="checkbox" name="" id="" />{" "}
+          <Form.Label> Keep me logged In</Form.Label>
         </Form.Group>
 
         <div className="d-grid">

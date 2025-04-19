@@ -1,10 +1,11 @@
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
-function RegistrationForm() {
+function RegistrationForm({ isLoggedIn }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
+  if (isLoggedIn) return <div>Logged In.</div>;
   return (
     <div className="form-container-signUp">
       <form className="mt-4" onSubmit={handleSubmit}>
