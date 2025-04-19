@@ -1,9 +1,9 @@
 import RegistrationForm from "../components/RegistrationForm";
 
-export default function Register() {
+export default function Register({ isLoggedIn }) {
   return (
     <>
-      <RegistrationForm />
+      <RegistrationForm isLoggedIn={isLoggedIn} />
     </>
   );
 }

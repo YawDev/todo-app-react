@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../styles/NavBar.css";
+import Logout from "./Logout";
 
-const SideNavBarComponent = () => {
+const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -17,12 +18,19 @@ const SideNavBarComponent = () => {
           ☰
         </button>
         <ul>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-          <li>
-            <Link to="/login">Sign In</Link>
-          </li>
+          {!isLoggedIn ? (
+            <>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+              <li>
+                <Link to="/login">Sign In</Link>
+              </li>
+            </>
+          ) : (
+            <Logout setIsLoggedIn={setIsLoggedIn} />
+          )}
+
           <li>
             <Link to="/todos">Manage Todos</Link>
           </li>
