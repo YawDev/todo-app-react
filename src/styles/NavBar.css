@@ -4,44 +4,46 @@
   left: 0;
   right: 0;
   height: 60px;
-  background-color: #434e5f;
-  color: white;
+  background-color: #f7f7f7; /* Soft white */
+  color: #111;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   z-index: 1000;
   font-family: "Exo 2", sans-serif;
 }
 
 .topNavBar .logo {
-  flex: 1;
   font-weight: bold;
   font-size: 1.2rem;
+  color: #111;
 }
 
 .topNavBar ul {
-  flex: 2;
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
   gap: 30px;
+  margin-right: 30px; /* Reduced from 60px to 30px */
+  justify-content: flex-end;
+  flex: 1;
 }
 
 .topNavBar ul li a {
-  color: white;
+  color: #111;
   text-decoration: none;
   font-weight: bold;
   padding: 10px;
   display: inline-block;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .topNavBar ul li a:hover {
-  background-color: #57667a;
+  background-color: #eaeaea;
+  color: black;
   border-radius: 4px;
 }
 

@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import "../styles/SignUp.css";
 
 function RegistrationForm({ isLoggedIn }) {
   const handleSubmit = (e) => {
@@ -7,24 +8,33 @@ function RegistrationForm({ isLoggedIn }) {
 
   if (isLoggedIn) return <div>Logged In.</div>;
   return (
-    <div className="form-container-signUp">
-      <form className="mt-4" onSubmit={handleSubmit}>
-        <h2 id="signUpTitle">Sign Up</h2>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2 className="signup-title">Sign Up</h2>
 
-        <div className="mb-3">
-          <label htmlFor="firstname" className="form-label">
+        <div className="signup-form-group">
+          <label htmlFor="username" className="signup-label">
             Username
           </label>
-          <input type="text" className="form-control" id="firstName" />
+          <input
+            type="text"
+            className="signup-input"
+            id="username"
+            placeholder="Enter a username"
+          />
         </div>
-        <div className="mb-3">
-          <label htmlFor="lastname" className="form-label">
+
+        <div className="signup-form-group">
+          <label htmlFor="password" className="signup-label">
             Password
           </label>
-          <input type="text" className="form-control" id="lastName" />
-          <div id="emailHelp" className="form-text">
-            Secure password required.
-          </div>
+          <input
+            type="password"
+            className="signup-input"
+            id="password"
+            placeholder="Enter a password"
+          />
+          <div className="signup-hint">Secure password required.</div>
         </div>
 
         <Button type="submit" variant="primary">
