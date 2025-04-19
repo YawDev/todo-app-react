@@ -1,75 +1,51 @@
-.sideBarNav {
+.topNavBar {
   position: fixed;
   top: 0;
-  left: -200px;
-  width: 200px;
-  font-family: "Exo 2", sans-serif;
-  height: 100%;
-  background-color: #434e5f; /* Dark grey */
-  color: white;
-  padding-top: 20px;
-  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
-  transition: left 0.3s ease-in-out;
-}
-
-.sideBarNav.open {
   left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #434e5f;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-family: "Exo 2", sans-serif;
 }
 
-.sideBarNav ul {
+.topNavBar .logo {
+  flex: 1;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.topNavBar ul {
+  flex: 2;
   list-style-type: none;
+  margin: 0;
   padding: 0;
-  display: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 
-.sideBarNav.open ul {
-  display: block;
-}
-
-.sideBarNav ul li {
-  padding: 10px;
-}
-
-.sideBarNav ul li a {
+.topNavBar ul li a {
   color: white;
   text-decoration: none;
-  display: block;
-  padding: 10px;
   font-weight: bold;
-}
-
-.sideBarNav ul li a:hover {
-  background-color: #57667a; /* Slightly lighter grey to complement the sidebar */
-}
-
-.toggle-btn {
-  position: absolute;
-  top: 10px;
-  right: -35px;
-  background-color: #434e5f; /* Matching dark grey */
-  color: rgb(255, 255, 255);
   padding: 10px;
-  border: 2px solid #434e5f; /* Matching border */
-  font-size: 24px;
-  cursor: pointer;
-  transition: right 0.3s ease-in-out;
-  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  transition: background-color 0.2s ease;
 }
 
-.toggle-btn:hover {
-  background-color: #57667a; /* Slightly lighter grey to complement the sidebar */
-}
-
-.sideBarNav.open .toggle-btn {
-  right: -35px;
+.topNavBar ul li a:hover {
+  background-color: #57667a;
+  border-radius: 4px;
 }
 
 .content {
-  margin-left: 220px;
+  margin-top: 60px;
   padding: 20px;
-  transition: margin-left 0.3s ease-in-out;
-}
-
-.sideBarNav.open ~ .content {
-  margin-left: 0;
 }
