@@ -13,11 +13,15 @@ import Account from "./pages/Account";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userContext, setUserContext] = useState(null);
+
   useEffect(() => {
     const checkLogin = async () => {
       try {
         const result = await AuthStatusAPI();
         setIsLoggedIn(result.Authenticated);
+        console.log(result);
+        //setUserContext(r)
       } catch (error) {
         console.error("Auth check failed:", error);
         setIsLoggedIn(false);
@@ -41,7 +45,7 @@ function App() {
         <Route
           path="/account"
           element={
-            <Account isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Account isLoggedIn={isLoggedIn} userContext={userContext} />
           }
         />
         <Route
@@ -51,13 +55,18 @@ function App() {
               todoList={todoList}
               setTodoList={setTodoList}
               isLoggedIn={isLoggedIn}
+              userContext={userContext}
             />
           }
         />
         <Route
           path="/login"
           element={
-            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Login
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              setUserContext={setUserContext}
+            />
           }
         />
         <Route

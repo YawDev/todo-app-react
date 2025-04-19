@@ -3,7 +3,11 @@ import { LoginAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
 import logoImg from "../assets/react.svg";
 
-export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
+export default function LoginForm({
+  isLoggedIn,
+  setIsLoggedIn,
+  setUserContext,
+}) {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -14,7 +18,9 @@ export default function LoginForm({ isLoggedIn, setIsLoggedIn }) {
         Password: e.target.password.value,
       };
       const data = await LoginAPI(user);
+      console.log(data.authenticatedUser);
       setIsLoggedIn(true);
+      setUserContext(data.authenticatedUser);
       navigate("/todos");
     } catch (error) {
       console.log("Login failed", error);

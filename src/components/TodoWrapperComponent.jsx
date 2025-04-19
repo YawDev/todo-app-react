@@ -5,7 +5,11 @@ import { useState, useEffect } from "react";
 import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
 
-export default function TodoWrapperComponent({ todoList, setTodoList }) {
+export default function TodoWrapperComponent({
+  todoList,
+  setTodoList,
+  isLoggedIn,
+}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
@@ -87,7 +91,7 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
     setSearchTerm("");
   }, [todoList]);
 
-  return (
+  return isLoggedIn ? (
     <div className="todo-container">
       <h1 className="wrapperTitle"> Todo List</h1>
       <HeaderComponent
@@ -122,5 +126,7 @@ export default function TodoWrapperComponent({ todoList, setTodoList }) {
         taskToEdit={taskToEdit}
       />
     </div>
+  ) : (
+    <h1>Login To View Todo</h1>
   );
 }

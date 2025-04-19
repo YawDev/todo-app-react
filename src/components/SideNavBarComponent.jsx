@@ -28,15 +28,16 @@ const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
               </li>
             </>
           ) : (
-            <Logout setIsLoggedIn={setIsLoggedIn} />
+            <>
+              <Logout setIsLoggedIn={setIsLoggedIn} />
+              <li>
+                <Link to="/todos">Manage Todos</Link>
+              </li>
+              <li>
+                <Link to="/account">Account Settings</Link>
+              </li>
+            </>
           )}
-
-          <li>
-            <Link to="/todos">Manage Todos</Link>
-          </li>
-          <li>
-            <Link to="/account">Account Settings</Link>
-          </li>
         </ul>
       </div>
     </nav>
