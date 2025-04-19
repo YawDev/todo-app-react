@@ -13,7 +13,7 @@ const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
 
   return (
     <nav>
-      <div className={`sideBarNav ${isOpen ? "open" : ""}`} id="sideBarNav">
+      <div className={`topNavBar ${isOpen ? "open" : ""}`} id="topNavBar">
         <button className="toggle-btn" id="toggle-btn" onClick={toggleSidebar}>
           ☰
         </button>
@@ -28,15 +28,16 @@ const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
               </li>
             </>
           ) : (
-            <Logout setIsLoggedIn={setIsLoggedIn} />
+            <>
+              <Logout setIsLoggedIn={setIsLoggedIn} />
+              <li>
+                <Link to="/todos">Manage Todos</Link>
+              </li>
+              <li>
+                <Link to="/account">Account Settings</Link>
+              </li>
+            </>
           )}
-
-          <li>
-            <Link to="/todos">Manage Todos</Link>
-          </li>
-          <li>
-            <Link to="/account">Account Settings</Link>
-          </li>
         </ul>
       </div>
     </nav>

@@ -1,11 +1,17 @@
 import LoginForm from "../components/LoginForm";
+import BackToHomePage from "../components/BackToHomePage";
 import "../styles/Form.css";
 
-export default function Login({ isLoggedIn, setIsLoggedIn }) {
-  console.log("login pg", isLoggedIn);
+export default function Login({ isLoggedIn, setIsLoggedIn, setUserContext }) {
   return (
     <>
-      <LoginForm isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      {" "}
+      <BackToHomePage />
+      <LoginForm
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        setUserContext={setUserContext}
+      />
     </>
   );
 }

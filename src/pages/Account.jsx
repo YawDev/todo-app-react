@@ -1,7 +1,17 @@
-export default function Account({ isLoggedIn, setIsLoggedIn }) {
-  return (
+import BackToHomePage from "../components/BackToHomePage";
+
+export default function Account({ isLoggedIn, userContext }) {
+  console.log(userContext);
+  return !isLoggedIn ? (
     <>
-      <h1>Account Page</h1>
+      <BackToHomePage />
+      <h1>Not Authorized</h1>
     </>
+  ) : (
+    <div>
+      <BackToHomePage />
+
+      <h1>Welcome, {userContext.username}</h1>
+    </div>
   );
 }
