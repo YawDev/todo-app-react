@@ -5,18 +5,13 @@ import "../styles/NavBar.css";
 import Logout from "./Logout";
 
 const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <nav>
-      <div className={`topNavBar ${isOpen ? "open" : ""}`} id="topNavBar">
-        <button className="toggle-btn" id="toggle-btn" onClick={toggleSidebar}>
-          ☰
-        </button>
+      <div className="topNavBar" id="topNavBar">
         <ul>
           {!isLoggedIn ? (
             <>

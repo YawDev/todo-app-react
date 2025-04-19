@@ -2,6 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { LoginAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
 import logoImg from "../assets/react.svg";
+import "../styles/Login.css";
 
 export default function LoginForm({
   isLoggedIn,
@@ -28,36 +29,43 @@ export default function LoginForm({
   };
   console.log(isLoggedIn, "khj");
 
-  if (isLoggedIn) return;
   return isLoggedIn ? (
-    <div>You are logged in </div>
+    <div>You are logged in.</div>
   ) : (
-    <div className="form-container">
-      <Form onSubmit={handleLogin}>
-        <h4 className="mb-4 text-center">
-          Login <img src={logoImg} />{" "}
+    <div className="login-form-section">
+      <Form onSubmit={handleLogin} className="login-form">
+        <h4>
+          Login <img src={logoImg} alt="logo" />
         </h4>
 
-        <Form.Group className="mb-3" controlId="username">
+        <div className="login-form-group">
           <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username" />
-        </Form.Group>
-
-        <Form.Group className="mb-4" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Enter password" />
-        </Form.Group>
-
-        <Form.Group controlId="">
-          <input type="checkbox" name="" id="" />{" "}
-          <Form.Label> Keep me logged In</Form.Label>
-        </Form.Group>
-
-        <div className="d-grid">
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            id="username"
+          />
         </div>
+
+        <div className="login-form-group">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter password"
+            id="password"
+          />
+        </div>
+
+        <div className="login-form-group checkbox-group">
+          <input type="checkbox" id="remember-me" />
+          <label htmlFor="remember-me" className="checkbox-label">
+            Keep me logged in
+          </label>
+        </div>
+
+        <Button variant="primary" type="submit">
+          Login
+        </Button>
       </Form>
     </div>
   );
