@@ -1,5 +1,4 @@
 import "./styles/Todo.css";
-import TodoWrapperComponent from "./components/TodoWrapperComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TopNavBarComponent from "./components/TopNavBarComponent";
 import { useState, useEffect } from "react";
@@ -10,7 +9,7 @@ import Login from "./pages/Login";
 import { AuthStatusAPI } from "./utils/GoServiceAuth";
 import Account from "./pages/Account";
 import HomePage from "./pages/HomePage";
-import BackToHomePage from "./components/BackToHomePage";
+import Todo from "./pages/Todo";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -21,12 +20,8 @@ function App() {
     const checkLogin = async () => {
       try {
         const data = await AuthStatusAPI();
-        console.log(data.result, "debugging OUTSIDE IF");
         if (data.result) {
-          console.log(data, "debugging INSIDE IF");
-
           const { status: httpStatus, authenticatedUser: user } = data.result;
-          console.log(httpStatus);
           if (httpStatus === 200) {
             setIsLoggedIn(data.Authenticated);
             setUserContext(user);
@@ -35,7 +30,6 @@ function App() {
             setUserContext(null);
           }
         } else {
-          console.log("reached else --checkLogin");
           setIsLoggedIn(false);
           setUserContext(null);
         }
@@ -48,8 +42,7 @@ function App() {
 
     checkLogin();
 
-    //const interval = setInterval(checkLogin, 15 * 60 * 1000);
-    const interval = setInterval(checkLogin, 6000);
+    const interval = setInterval(checkLogin, 15 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -74,7 +67,7 @@ function App() {
           <Route
             path="/todos"
             element={
-              <TodoWrapperComponent
+              <Todo
                 todoList={todoList}
                 setTodoList={setTodoList}
                 isLoggedIn={isLoggedIn}
