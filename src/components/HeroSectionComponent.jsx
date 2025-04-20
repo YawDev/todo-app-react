@@ -1,6 +1,7 @@
 import "../styles/HeroSection.css";
 
-const HeroSectionComponent = (isLoggedIn, userContext) => {
+const HeroSectionComponent = (userContext, isLoggedIn) => {
+  console.log(isLoggedIn, "hero");
   return isLoggedIn ? (
     <>
       {" "}
