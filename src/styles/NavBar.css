@@ -51,3 +51,9 @@
   margin-top: 60px;
   padding: 20px;
 }
+
+.topNavBar-left,
+.topNavBar-right {
+  display: flex;
+  gap: 20px;
+}
