@@ -16,6 +16,9 @@ const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
           {!isLoggedIn ? (
             <>
               <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
                 <Link to="/register">Register</Link>
               </li>
               <li>
@@ -24,6 +27,9 @@ const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
             </>
           ) : (
             <>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
               <Logout setIsLoggedIn={setIsLoggedIn} />
               <li>
                 <Link to="/todos">Manage Todos</Link>

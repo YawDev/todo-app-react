@@ -50,7 +50,6 @@ export async function AuthStatusAPI() {
       const result = await response.json();
       console.log(result);
       return { Authenticated: false };
-    } else {
     }
     const result = await response.json();
     console.log(result);

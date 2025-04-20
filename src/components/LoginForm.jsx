@@ -36,7 +36,7 @@ export default function LoginForm({
       const timer = setTimeout(() => {
         setShowAlert(false);
         setApiError("");
-      }, 3000);
+      }, 4000);
       return () => clearTimeout(timer);
     }
   }, [apiError]);
@@ -78,11 +78,12 @@ export default function LoginForm({
         setIsLoggedIn(true);
         setUserContext(data.authenticatedUser);
         navigate("/todos");
-      } else if (httpStatus === 404) {
+      } else if (httpStatus === 404 || httpStatus === 400) {
         setApiError(message);
       }
     } catch (error) {
       console.log("Login failed", error);
+      setApiError("We apologize, Internal Server Error.");
     }
   };
 
