@@ -4,7 +4,8 @@ export default function FooterComponent() {
   return (
     <div className="footerSection">
       <p>
-        Todo App - Powered by React <img src={footerImg} />
+        Todo App - Powered by React{" "}
+        <img src={footerImg} className="footer-img " />
       </p>
       <div className="footer-links">
         <a href="/about">About</a>
