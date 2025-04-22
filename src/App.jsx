@@ -13,6 +13,7 @@ import Todo from "./pages/Todo";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [listId, setListId] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userContext, setUserContext] = useState(null);
 
@@ -70,6 +71,8 @@ function App() {
               <Todo
                 todoList={todoList}
                 setTodoList={setTodoList}
+                listId={listId}
+                setListId={setListId}
                 isLoggedIn={isLoggedIn}
                 userContext={userContext}
               />

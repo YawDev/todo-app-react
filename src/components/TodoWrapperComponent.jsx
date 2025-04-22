@@ -4,11 +4,18 @@ import DeleteConfirmationModalCompononent from "./DeleteConfirmationComponent";
 import { useState, useEffect } from "react";
 import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
+import {
+  UpdateTaskAPI,
+  DeleteTaskAPI,
+  GetTodoListAPI,
+} from "../utils/GoServiceTodo";
 
 export default function TodoWrapperComponent({
   todoList,
   setTodoList,
+  listId,
   isLoggedIn,
+  userContext,
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -29,10 +36,20 @@ export default function TodoWrapperComponent({
   const firstItemIndex = lastItemIndex - itemsPerPage;
   const currentData = filteredTodoList.slice(firstItemIndex, lastItemIndex);
 
-  const confirmDelete = () => {
-    const updatedTodoList = todoList.filter(
-      (task) => task.id !== taskToDelete.id
-    );
+  const confirmDelete = async () => {
+    const result = await DeleteTaskAPI(taskToDelete.id);
+
+    const data = await GetTodoListAPI(userContext.id);
+
+    if (!data || !result) {
+      alert("Session expired or server down. Redirecting to login...");
+      window.location.href = "/login";
+      return;
+    }
+
+    const { id, tasks } = data;
+
+    const updatedTodoList = tasks;
     setTodoList(updatedTodoList);
 
     const currentPageItemsAfterDelete = updatedTodoList.slice(
@@ -70,14 +87,20 @@ export default function TodoWrapperComponent({
     console.log("task", task);
   };
 
-  const handleEditSubmit = (title, description) => {
-    setTodoList(
-      todoList.map((task) =>
-        task.id === taskToEdit.id
-          ? { ...task, title: title, description: description }
-          : task
-      )
-    );
+  const handleEditSubmit = async (title, description) => {
+    const apiResult = await UpdateTaskAPI(taskToEdit.id, {
+      title,
+      description,
+    });
+    const data = await GetTodoListAPI(userContext.id);
+
+    if (!data) {
+      alert("Session expired or server down. Redirecting to login...");
+      window.location.href = "/login";
+      return;
+    }
+    const { id, tasks } = data;
+    setTodoList(tasks);
 
     handleClose();
   };
@@ -93,12 +116,14 @@ export default function TodoWrapperComponent({
 
   return isLoggedIn ? (
     <div className="todo-container">
-      <h1 className="wrapperTitle"> Todo List</h1>
+      <h1 className="wrapperTitle"> Manage Tasks</h1>
+      <h1 className="todo-title">Let’s help you stay productive ✨</h1>
+
       <HeaderComponent
-        todoList={todoList}
         setTodoList={setTodoList}
+        listId={listId}
+        userContext={userContext}
         handleQueryChange={handleQueryChange}
-        searchTerm={searchTerm}
       />
       <TodoItemSection
         todoList={currentData}
