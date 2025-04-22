@@ -15,6 +15,22 @@ export async function LoginAPI(user) {
   }
 }
 
+export async function RegisterAPI(user) {
+  try {
+    const response = await fetch("http://localhost:8080/api/v1/Register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Register error:", error);
+    throw error;
+  }
+}
+
 export async function LogoutAPI() {
   try {
     const response = await fetch("http://localhost:8080/api/v1/Logout", {

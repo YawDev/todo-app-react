@@ -27,6 +27,7 @@ h3 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   font-family: "Josefin Sans", sans-serif;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -195,4 +196,22 @@ input[type="text"] {
 
 .fade-alert.hide {
   opacity: 0;
+}
+
+.todo-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #53586e;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

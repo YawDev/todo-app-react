@@ -1,19 +1,15 @@
 import ButtonComponent from "./ButtonComponent";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
-import { v4 as uuidv4 } from "uuid";
+import { GetTodoListAPI, AddTaskToListAPI } from "../utils/GoServiceTodo";
 
 export default function HeaderComponent({
-  todoList,
   setTodoList,
+  listId,
+  userContext,
   handleQueryChange,
-  searchTerm,
 }) {
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    console.log(todoList); // Log todoList when it changes
-  }, [todoList]);
 
   const handleClose = () => {
     setShowModal(false);
@@ -22,16 +18,32 @@ export default function HeaderComponent({
     setShowModal(true);
   };
 
-  const handleSubmit = (title, description) => {
-    setTodoList([
-      ...todoList,
-      {
-        id: uuidv4(),
-        title: title,
-        description: description,
-        isCompleted: false,
-      },
-    ]);
+  const handleSubmit = async (title, description) => {
+    const createTask = async () => {
+      try {
+        var task = { title, description };
+        var data = await AddTaskToListAPI(listId, task);
+        console.log(data);
+      } catch (error) {
+        console.log("Error while creating task.", error);
+      }
+    };
+
+    const fetchList = async () => {
+      try {
+        var data = await GetTodoListAPI(userContext.id);
+        if (data) {
+          const { id, tasks } = data;
+          setTodoList(tasks);
+        }
+        console.log(data);
+      } catch (error) {
+        console.log("Error while fetching updated todo list.", error);
+      }
+    };
+
+    await createTask();
+    await fetchList();
     handleClose();
   };
 

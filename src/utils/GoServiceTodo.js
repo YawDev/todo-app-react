@@ -12,11 +12,15 @@ export async function GetTodoListAPI(userID) {
     );
 
     const data = await response.json();
+    if (data?.status === 401) throw error("Invalid credentials");
+
+    if (!response.ok) throw error("Session expired or server down");
+
     console.log(data);
     return data;
   } catch (error) {
     console.error("GetList API failed:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -34,11 +38,14 @@ export async function CreateListAPI(userID) {
     );
 
     const data = await response.json();
+    if (data?.status === 401) throw error("Invalid credentials");
+
+    if (!response.ok) throw error("Session expired or server down");
     console.log(data);
     return data;
   } catch (error) {
     console.error("CreateList API failed:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -57,11 +64,14 @@ export async function AddTaskToListAPI(listID, task) {
     );
 
     const data = await response.json();
+    if (data?.status === 401) throw error("Invalid credentials");
+
+    if (!response.ok) throw error("Session expired or server down");
     console.log(data);
     return data;
   } catch (error) {
     console.error("AddTask API failed:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -80,11 +90,14 @@ export async function UpdateTaskAPI(taskID, task) {
     );
 
     const data = await response.json();
+    if (data?.status === 401) throw error("Invalid credentials");
+
+    if (!response.ok) throw error("Session expired or server down");
     console.log(data);
     return data;
   } catch (error) {
     console.error("UpdateTask API failed:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -103,11 +116,14 @@ export async function UpdateTaskStatusAPI(taskID, updateRequest) {
     );
 
     const data = await response.json();
+    if (data?.status === 401) throw error("Invalid credentials");
+
+    if (!response.ok) throw error("Session expired or server down");
     console.log(data);
     return data;
   } catch (error) {
     console.error("UpdateTaskStatus API failed:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -125,10 +141,15 @@ export async function DeleteTaskAPI(taskID) {
     );
 
     const data = await response.json();
+    if (data.status === 401) throw error("Invalid credentials");
+
+    if (!response.ok) {
+      throw error("server down or session expired");
+    }
     console.log(data);
     return data;
   } catch (error) {
     console.error("DeleteTask API failed:", error);
-    throw error;
+    return null;
   }
 }
