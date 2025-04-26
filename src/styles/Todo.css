@@ -125,6 +125,10 @@ h3 {
   margin-top: 20px;
 }
 
+.header-img {
+  height: 90px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -203,6 +207,43 @@ input[type="text"] {
   margin-bottom: 20px;
   color: #53586e;
   text-align: center;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.go-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px 25px;
+  border-radius: 20px;
+  background-color: #d0f1ff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 30px auto;
+  max-width: fit-content;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.go-caption img.header-img {
+  width: 60px;
+  height: auto;
+  animation: bounce 2.5s infinite ease-in-out;
+}
+
+.go-caption-text {
+  font-family: "Chewy", cursive;
+  font-size: 2.4rem;
+  color: #00add8;
+  margin: 0;
 }
 
 @keyframes fadeIn {

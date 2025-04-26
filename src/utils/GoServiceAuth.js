@@ -24,9 +24,13 @@ export async function RegisterAPI(user) {
       },
       body: JSON.stringify(user),
     });
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Sign up failed");
+    }
     return await response.json();
   } catch (error) {
-    console.error("Register error:", error);
+    console.error("Register new Account error:", error);
     throw error;
   }
 }

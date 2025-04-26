@@ -73,6 +73,10 @@
   color: #007bff; /* Highlight color for hover effect */
 }
 
+.footer-img {
+  height: 20px;
+}
+
 @media (max-width: 768px) {
   .footerSection {
     flex-direction: column;

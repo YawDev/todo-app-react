@@ -6,6 +6,13 @@ import "../styles/Login.css";
 import { useState, useEffect } from "react";
 import { validate } from "uuid";
 
+const Validate = (username, password) => {
+  if (!username || !username.trim() || !password || !password.trim()) {
+    return false;
+  }
+  return true;
+};
+
 export default function LoginForm({
   isLoggedIn,
   setIsLoggedIn,
@@ -49,7 +56,7 @@ export default function LoginForm({
       setIsValid(false);
     } else {
       setUserNameError("");
-      setIsValid(true);
+      setIsValid(Validate(input, password));
     }
   };
 
@@ -61,7 +68,7 @@ export default function LoginForm({
       setIsValid(false);
     } else {
       setPasswordError("");
-      setIsValid(true);
+      setIsValid(Validate(username, input));
     }
   };
 
