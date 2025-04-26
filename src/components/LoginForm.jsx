@@ -56,7 +56,7 @@ export default function LoginForm({
       setIsValid(false);
     } else {
       setUserNameError("");
-      setIsValid(Validate(username, password));
+      setIsValid(Validate(input, password));
     }
   };
 
@@ -68,7 +68,7 @@ export default function LoginForm({
       setIsValid(false);
     } else {
       setPasswordError("");
-      setIsValid(Validate(username, password));
+      setIsValid(Validate(username, input));
     }
   };
 
