@@ -10,9 +10,13 @@ function RegistrationForm({ isLoggedIn }) {
   const navigate = useNavigate();
   const [newUsername, setNewUserName] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [IsValid, setIsValid] = useState(false);
+
   const [usernameError, setUserNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirmError, setPasswordConfirmError] = useState("");
+
   const [apiMessage, setApiMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   useEffect(() => {
@@ -36,6 +40,16 @@ function RegistrationForm({ isLoggedIn }) {
     }
   }, [apiMessage]);
 
+  useEffect(() => {
+    const isValidForm =
+      newUsername.trim() &&
+      newPassword.trim() &&
+      passwordConfirm.trim() &&
+      newPassword === passwordConfirm;
+
+    setIsValid(isValidForm);
+  }, [newUsername, newPassword, passwordConfirm]);
+
   const usernameOnChange = (e) => {
     const input = e.target.value;
     setNewUserName(input);
@@ -44,7 +58,6 @@ function RegistrationForm({ isLoggedIn }) {
       setIsValid(false);
     } else {
       setUserNameError("");
-      setIsValid(true);
     }
   };
 
@@ -53,10 +66,31 @@ function RegistrationForm({ isLoggedIn }) {
     setNewPassword(input);
     if (!input.trim()) {
       setPasswordError("Password is required");
+      setPasswordConfirmError("");
+      setIsValid(false);
+    } else if (passwordConfirm && input !== passwordConfirm) {
+      setPasswordError("Passwords need to match");
+      setPasswordConfirmError("Passwords need to match");
       setIsValid(false);
     } else {
       setPasswordError("");
-      setIsValid(true);
+      if (passwordConfirm) {
+        setPasswordConfirmError("");
+      }
+    }
+  };
+
+  const passwordConfirmOnChange = (e) => {
+    const input = e.target.value;
+    setPasswordConfirm(input);
+    if (!input.trim()) {
+      setPasswordConfirmError("Confirm password required");
+      setIsValid(false);
+    } else if (newPassword && input !== newPassword) {
+      setPasswordConfirmError("Passwords need to match");
+      setIsValid(false);
+    } else {
+      setPasswordConfirmError("");
     }
   };
 
@@ -139,12 +173,12 @@ function RegistrationForm({ isLoggedIn }) {
               type="password"
               placeholder="Re-enter new password"
               id="passwordConfirmation"
-              // onChange={passwordOnChange}
+              onChange={passwordConfirmOnChange}
             />
 
-            {passwordError && (
+            {passwordConfirmError && (
               <div style={{ color: "red", fontSize: "15px" }}>
-                {passwordError}
+                {passwordConfirmError}
               </div>
             )}
           </div>
