@@ -12,7 +12,7 @@ import HomePage from "./pages/HomePage";
 import Todo from "./pages/Todo";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState(null);
   const [listId, setListId] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userContext, setUserContext] = useState(null);
@@ -54,10 +54,18 @@ function App() {
         <TopNavBarComponent
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
+          setUserContext={setUserContext}
+          setTodoList={setTodoList}
+          setListId={setListId}
         />
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/"
+            element={
+              <HomePage isLoggedIn={isLoggedIn} userContext={userContext} />
+            }
+          />
           <Route
             path="/account"
             element={

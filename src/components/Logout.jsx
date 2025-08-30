@@ -3,7 +3,12 @@ import { LogoutAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export default function Logout({ setIsLoggedIn }) {
+export default function Logout({
+  setIsLoggedIn,
+  setTodoList,
+  setUserContext,
+  setListId,
+}) {
   const navigate = useNavigate();
 
   const handleLogout = async (e) => {
@@ -11,6 +16,9 @@ export default function Logout({ setIsLoggedIn }) {
     try {
       const data = await LogoutAPI();
       setIsLoggedIn(false);
+      setUserContext(null);
+      setTodoList(null);
+      setListId(0);
       navigate("/login");
     } catch (error) {
       console.log("Logout failed", error);

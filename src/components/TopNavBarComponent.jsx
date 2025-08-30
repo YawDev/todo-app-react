@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import "../styles/NavBar.css";
 import Logout from "./Logout";
 
-const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
+const SideNavBarComponent = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  setUserContext,
+  setTodoList,
+  setListId,
+}) => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -32,7 +38,12 @@ const SideNavBarComponent = ({ isLoggedIn, setIsLoggedIn }) => {
               </>
             ) : (
               <>
-                <Logout setIsLoggedIn={setIsLoggedIn} />
+                <Logout
+                  setIsLoggedIn={setIsLoggedIn}
+                  setTodoList={setTodoList}
+                  setUserContext={setUserContext}
+                  setListId={setListId}
+                />
                 <li>
                   <Link to="/todos">Manage Todos</Link>
                 </li>

@@ -74,7 +74,11 @@
 }
 
 .footer-img {
-  height: 20px;
+  height: 15px;
+}
+
+.footerText {
+  font-size: 10px;
 }
 
 @media (max-width: 768px) {

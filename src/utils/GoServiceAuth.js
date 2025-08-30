@@ -11,7 +11,7 @@ export async function LoginAPI(user) {
     return await response.json();
   } catch (error) {
     console.error("Login error:", error);
-    throw error;
+    throw new Error();
   }
 }
 
@@ -31,7 +31,7 @@ export async function RegisterAPI(user) {
     return await response.json();
   } catch (error) {
     console.error("Register new Account error:", error);
-    throw error;
+    throw new Error();
   }
 }
 
@@ -52,7 +52,7 @@ export async function LogoutAPI() {
     return await response.json();
   } catch (error) {
     console.error("Logout error:", error);
-    throw error;
+    throw new Error();
   }
 }
 
@@ -76,6 +76,6 @@ export async function AuthStatusAPI() {
     return { Authenticated: true, result };
   } catch (error) {
     console.error("Fetch Auth Status error:", error);
-    throw error;
+    throw new Error();
   }
 }

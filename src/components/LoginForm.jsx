@@ -112,9 +112,7 @@ export default function LoginForm({
             </Alert>
           )}
 
-          <h4>
-            Login <img src={logoImg} alt="logo" />
-          </h4>
+          <h4>Login</h4>
           <div className="login-form-group">
             <Form.Label>Username</Form.Label>
 
