@@ -10,10 +10,13 @@ const Todo = ({
   isLoggedIn,
   userContext,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (!isLoggedIn || !userContext?.id) return;
 
     const fetchTodoList = async () => {
+      setIsLoading(true);
       try {
         const data = await GetTodoListAPI(userContext.id);
         if (data) {
@@ -22,14 +25,17 @@ const Todo = ({
           setTodoList(tasks);
         }
       } catch (error) {
-        console.error("Todo List Fetch failed:", error);
+        console.log("Todo List Fetch failed:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchTodoList();
   }, [isLoggedIn, userContext?.id, setTodoList]);
-
-  return (
+  return isLoading ? (
+    <div>Loading your todo list...</div>
+  ) : (
     <>
       <TodoWrapperComponent
         todoList={todoList}
@@ -37,6 +43,7 @@ const Todo = ({
         listId={listId}
         isLoggedIn={isLoggedIn}
         userContext={userContext}
+        setListId={setListId}
       />
     </>
   );

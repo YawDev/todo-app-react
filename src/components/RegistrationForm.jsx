@@ -131,9 +131,7 @@ function RegistrationForm({ isLoggedIn }) {
               {apiMessage}
             </Alert>
           )}
-          <h4>
-            Register New Account <img src={logoImg} alt="logo" />
-          </h4>
+          <h4>Register New Account</h4>
           <div className="signup-form-group">
             <Form.Label>New Username</Form.Label>
 
