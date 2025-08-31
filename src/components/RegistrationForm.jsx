@@ -1,7 +1,6 @@
 import { Button, Form, Alert } from "react-bootstrap";
 import { RegisterAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
-import logoImg from "../assets/react.svg";
 import "../styles/Login.css";
 import { useState, useEffect } from "react";
 import "../styles/SignUp.css";

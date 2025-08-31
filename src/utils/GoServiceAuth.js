@@ -68,11 +68,9 @@ export async function AuthStatusAPI() {
 
     if (!response.ok) {
       const result = await response.json();
-      console.log(result);
       return { Authenticated: false };
     }
     const result = await response.json();
-    console.log(result);
     return { Authenticated: true, result };
   } catch (error) {
     console.error("Fetch Auth Status error:", error);
