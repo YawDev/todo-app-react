@@ -1,3 +1,4 @@
+//Depricated
 export default function () {
   return (
     <div className="go-caption">

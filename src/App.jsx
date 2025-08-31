@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TopNavBarComponent from "./components/TopNavBarComponent";
 import { useState, useEffect } from "react";
 import FooterComponent from "./components/FooterComponent";
-import { BrowserRouter as Router, Routes, Route, href } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { AuthStatusAPI } from "./utils/GoServiceAuth";

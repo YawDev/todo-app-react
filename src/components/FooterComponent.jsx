@@ -4,7 +4,7 @@ export default function FooterComponent() {
   return (
     <div className="footerSection">
       <p>
-        Todo App - <p className="footerText"> React + Vite</p>
+        Todo Task App - Vite
         <img src={footerImg} className="footer-img " />
       </p>
       <div className="footer-links">

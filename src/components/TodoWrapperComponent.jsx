@@ -4,7 +4,6 @@ import DeleteConfirmationModalCompononent from "./DeleteConfirmationComponent";
 import { useState, useEffect } from "react";
 import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
-import headerImg from "../assets/go-gopher.svg";
 
 import {
   UpdateTaskAPI,
@@ -157,7 +156,7 @@ export default function TodoWrapperComponent({
       <div className="todo-container">
         <h1 className="wrapperTitle">Tasks</h1>
 
-        <h1 className="todo-title">Let’s help you stay productive 📝</h1>
+        <h1 className="todo-title">Let’s help you stay productive 🗒️</h1>
 
         <HeaderComponent
           setTodoList={setTodoList}
