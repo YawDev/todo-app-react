@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import ButtonComponent from "./ButtonComponent";
 import ButtonSection from "./ButtonSection";
 
 export default function TodoItemComponent({
@@ -7,12 +5,22 @@ export default function TodoItemComponent({
   children,
   handleDeleteRequest,
   handleEditRequest,
+  handleTaskStatusRequest,
 }) {
   return (
     <div className="todo-item">
       <input type="hidden" name="todoItemId" value={todoItemId} />
-      <input type="checkbox" name="" id="" />
-      {children.title}
+      <input
+        type="checkbox"
+        name="itemChecked"
+        checked={children.isCompleted}
+        onChange={(e) =>
+          handleTaskStatusRequest(e, {
+            id: todoItemId,
+          })
+        }
+      />
+      {children.isCompleted ? <del>{children.title}</del> : children.title}
       <ButtonSection
         deleteAction={() =>
           handleDeleteRequest({
