@@ -10,6 +10,7 @@ import {
   DeleteTaskAPI,
   GetTodoListAPI,
   CreateListAPI,
+  UpdateTaskStatusAPI,
 } from "../utils/GoServiceTodo";
 
 export default function TodoWrapperComponent({
@@ -20,6 +21,10 @@ export default function TodoWrapperComponent({
   userContext,
   setListId,
 }) {
+  const [checkedBoxes, setCheckedBoxes] = useState({
+    filterComplete: false,
+    filterIncomplete: false,
+  });
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
@@ -31,9 +36,19 @@ export default function TodoWrapperComponent({
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  const filteredTodoList = todoList?.filter((todo) =>
-    todo.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredTodoList = todoList?.filter((todo) => {
+    if (
+      searchTerm &&
+      !todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+      return false;
+
+    if (checkedBoxes.filterComplete && !todo.isCompleted) return false;
+
+    if (checkedBoxes.filterIncomplete && todo.isCompleted) return false;
+
+    return true;
+  });
 
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -147,6 +162,23 @@ export default function TodoWrapperComponent({
     setCurrentPage(1);
   };
 
+  const handleTaskStatusRequest = async (e, task) => {
+    const { name, checked } = e.target;
+
+    const apiResult = await UpdateTaskStatusAPI(task.id, {
+      isCompleted: checked,
+    });
+    const data = await GetTodoListAPI(userContext.id);
+
+    if (!data) {
+      alert("Session expired or server down. Redirecting to login...");
+      window.location.href = "/login";
+      return;
+    }
+    const { tasks } = data;
+    setTodoList(tasks);
+  };
+
   useEffect(() => {
     setSearchTerm("");
   }, [todoList]);
@@ -168,7 +200,10 @@ export default function TodoWrapperComponent({
           todoList={currentData}
           handleDeleteRequest={handleDeleteRequest}
           handleEditRequest={handleEditRequest}
+          handleTaskStatusRequest={handleTaskStatusRequest}
           searchTerm={searchTerm}
+          setCheckedBoxes={setCheckedBoxes}
+          checkedBoxes={checkedBoxes}
         />
         <PaginationComponent
           totalItems={filteredTodoList.length}

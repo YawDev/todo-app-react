@@ -1,14 +1,53 @@
-export default function FilterButtonSection() {
+import { useState } from "react";
+
+export default function FilterButtonSection({ checkedBoxes, setCheckedBoxes }) {
+  const handleChange = (e) => {
+    const { name, checked } = e.target;
+
+    if (checked) {
+      setCheckedBoxes((checkedBoxes) => ({
+        ...checkedBoxes,
+        [name]: checked,
+      }));
+      // console.log(name, checked); // should print true OR false
+    } else {
+      setCheckedBoxes((prev) => ({
+        ...prev,
+        [name]: false,
+      }));
+    }
+  };
+
   return (
     <div className="login-form-group checkbox-group">
-      <input type="checkbox" id="filter-incomplete" />
-      <label htmlFor="filter-incomplete" className="checkbox-label">
-        Show incomplete
-      </label>
-      <input type="checkbox" id="filter-complete" />
-      <label htmlFor="filter-complete" className="checkbox-label">
-        Show complete
-      </label>
+      {(!checkedBoxes.filterComplete || checkedBoxes.filterIncomplete) && (
+        <>
+          <input
+            type="checkbox"
+            id="filterIncomplete"
+            name="filterIncomplete"
+            checked={checkedBoxes.filterIncomplete}
+            onChange={(e) => handleChange(e)}
+          />
+          <label htmlFor="filterIncomplete" className="checkbox-label">
+            Show incomplete
+          </label>
+        </>
+      )}
+      {(!checkedBoxes.filterIncomplete || checkedBoxes.filterComplete) && (
+        <>
+          <input
+            type="checkbox"
+            id="filterComplete"
+            name="filterComplete"
+            checked={checkedBoxes.filterComplete}
+            onChange={(e) => handleChange(e)}
+          />
+          <label htmlFor="filterComplete" className="checkbox-label">
+            Show complete
+          </label>
+        </>
+      )}
     </div>
   );
 }

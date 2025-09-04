@@ -27,7 +27,7 @@ export default function Logout({
   return (
     <>
       <li>
-        <Link To="/login" onClick={handleLogout}>
+        <Link to="/login" onClick={handleLogout}>
           Logout
         </Link>
       </li>
