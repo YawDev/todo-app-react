@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 import "../styles/NavBar.css";
 import Logout from "./Logout";
+import { useContext } from "react";
+import AppContext from "../utils/Context";
+import { App } from "react-bootstrap-icons";
 
-const SideNavBarComponent = ({
-  isLoggedIn,
-  setIsLoggedIn,
-  setUserContext,
-  setTodoList,
-  setListId,
-}) => {
+const SideNavBarComponent = () => {
+  const context = useContext(AppContext);
+  const { isLoggedIn } = context;
+
   return (
     <nav>
       <div className="topNavBar" id="topNavBar">
@@ -33,12 +33,7 @@ const SideNavBarComponent = ({
               </>
             ) : (
               <>
-                <Logout
-                  setIsLoggedIn={setIsLoggedIn}
-                  setTodoList={setTodoList}
-                  setUserContext={setUserContext}
-                  setListId={setListId}
-                />
+                <Logout />
                 <li>
                   <Link to="/todos">Manage Todos</Link>
                 </li>
