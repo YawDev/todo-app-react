@@ -13,6 +13,7 @@ import Todo from "./pages/Todo";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
+import AppContext from "./utils/Context";
 
 function App() {
   const [todoList, setTodoList] = useState(null);
@@ -53,62 +54,57 @@ function App() {
 
   return (
     <>
-      <Router>
-        <TopNavBarComponent
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-          setUserContext={setUserContext}
-          setTodoList={setTodoList}
-          setListId={setListId}
-        />
+      <AppContext.Provider
+        value={{
+          todoList,
+          setTodoList,
+          isLoggedIn,
+          setIsLoggedIn,
+          userContext,
+          setUserContext,
+          listId,
+          setListId,
+        }}
+      >
+        <Router>
+          <TopNavBarComponent />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage isLoggedIn={isLoggedIn} userContext={userContext} />
-            }
-          />
-          <Route
-            path="/account"
-            element={
-              <Account isLoggedIn={isLoggedIn} userContext={userContext} />
-            }
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage isLoggedIn={isLoggedIn} userContext={userContext} />
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <Account isLoggedIn={isLoggedIn} userContext={userContext} />
+              }
+            />
 
-          <Route
-            path="/todos"
-            element={
-              <Todo
-                todoList={todoList}
-                setTodoList={setTodoList}
-                listId={listId}
-                setListId={setListId}
-                isLoggedIn={isLoggedIn}
-                userContext={userContext}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                setUserContext={setUserContext}
-              />
-            }
-          />
-          <Route
-            path="/register"
-            element={<Register isLoggedIn={isLoggedIn} />}
-          />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
-        </Routes>
-        <FooterComponent />
-      </Router>
+            <Route path="/todos" element={<Todo />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserContext={setUserContext}
+                />
+              }
+            />
+            <Route
+              path="/register"
+              element={<Register isLoggedIn={isLoggedIn} />}
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<Privacy />} />
+          </Routes>
+          <FooterComponent />
+        </Router>
+      </AppContext.Provider>
     </>
   );
 }

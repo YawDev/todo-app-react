@@ -1,7 +1,7 @@
 import HeaderComponent from "./HeaderComponent";
 import TodoItemSection from "./TodoItemSection";
 import DeleteConfirmationModalCompononent from "./DeleteConfirmationComponent";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
 
@@ -12,15 +12,9 @@ import {
   CreateListAPI,
   UpdateTaskStatusAPI,
 } from "../utils/GoServiceTodo";
+import AppContext from "../utils/Context";
 
-export default function TodoWrapperComponent({
-  todoList,
-  setTodoList,
-  listId,
-  isLoggedIn,
-  userContext,
-  setListId,
-}) {
+export default function TodoWrapperComponent() {
   const [checkedBoxes, setCheckedBoxes] = useState({
     filterComplete: false,
     filterIncomplete: false,
@@ -35,6 +29,10 @@ export default function TodoWrapperComponent({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  const context = useContext(AppContext);
+  const { setTodoList, setListId, listId, userContext, todoList, isLoggedIn } =
+    context;
 
   const filteredTodoList = todoList?.filter((todo) => {
     if (
@@ -72,7 +70,7 @@ export default function TodoWrapperComponent({
 
     const currentPageItemsAfterDelete = updatedTodoList.slice(
       firstItemIndex,
-      lastItemIndex
+      lastItemIndex,
     );
 
     if (currentPageItemsAfterDelete.length === 0 && currentPage > 1) {
@@ -227,10 +225,10 @@ export default function TodoWrapperComponent({
       </div>
     ) : (
       <>
-        <h1> Lets get started on tracking your productivity.</h1>
+        {/* <h1> Lets get started on tracking your productivity.</h1>
         <button className="createNewListBtn" onClick={handleAddNewList}>
           Create New List
-        </button>
+        </button> */}
       </>
     )
   ) : (

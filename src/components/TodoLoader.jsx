@@ -7,8 +7,8 @@ const LoadingDots = () => {
         <motion.div
           key={i}
           style={{
-            width: "22px",
-            height: "22px",
+            width: "30px",
+            height: "30px",
             borderRadius: "50%",
             backgroundColor: "#8199abff",
           }}
