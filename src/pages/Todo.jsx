@@ -1,36 +1,32 @@
 import TodoWrapperComponent from "../components/TodoWrapperComponent";
 import { GetTodoListAPI } from "../utils/GoServiceTodo";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import LoadingDots from "../components/TodoLoader";
+import AppContext from "../utils/Context";
 
-const Todo = ({
-  todoList,
-  setTodoList,
-  listId,
-  setListId,
-  isLoggedIn,
-  userContext,
-}) => {
+const Todo = () => {
   const [isLoading, setIsLoading] = useState(false);
 
+  const context = useContext(AppContext);
+
   useEffect(() => {
-    if (!isLoggedIn || !userContext?.id) return;
+    if (!context?.isLoggedIn || !context?.userContext?.id) return;
 
     const fetchTodoList = async () => {
       setIsLoading(true);
       const startTime = Date.now();
       try {
-        const data = await GetTodoListAPI(userContext.id);
+        const data = await GetTodoListAPI(context?.userContext.id);
         if (data) {
           const { id, tasks } = data;
-          setListId(id);
-          setTodoList(tasks);
+          context?.setListId(id);
+          context?.setTodoList(tasks);
         }
       } catch (error) {
         console.log("Todo List Fetch failed:", error);
       } finally {
         const elapsed = Date.now() - startTime;
-        const minDelay = 1800; // 0.5s minimum
+        const minDelay = 500; // 0.5s minimum
         const remaining = Math.max(0, minDelay - elapsed);
 
         setTimeout(() => setIsLoading(false), remaining);
@@ -38,7 +34,7 @@ const Todo = ({
     };
 
     fetchTodoList();
-  }, [isLoggedIn, userContext?.id, setTodoList]);
+  }, [context?.isLoggedIn, context?.userContext?.id, context?.setTodoList]);
   return isLoading ? (
     <div
       style={{
@@ -54,14 +50,7 @@ const Todo = ({
     </div>
   ) : (
     <>
-      <TodoWrapperComponent
-        todoList={todoList}
-        setTodoList={setTodoList}
-        listId={listId}
-        isLoggedIn={isLoggedIn}
-        userContext={userContext}
-        setListId={setListId}
-      />
+      <TodoWrapperComponent />
     </>
   );
 };

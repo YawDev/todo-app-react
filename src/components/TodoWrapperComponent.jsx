@@ -1,7 +1,7 @@
 import HeaderComponent from "./HeaderComponent";
 import TodoItemSection from "./TodoItemSection";
 import DeleteConfirmationModalCompononent from "./DeleteConfirmationComponent";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PaginationComponent from "./Pagination";
 import SaveItemModalCompononent from "./SaveItemModalCompononent";
 
@@ -12,15 +12,9 @@ import {
   CreateListAPI,
   UpdateTaskStatusAPI,
 } from "../utils/GoServiceTodo";
+import AppContext from "../utils/Context";
 
-export default function TodoWrapperComponent({
-  todoList,
-  setTodoList,
-  listId,
-  isLoggedIn,
-  userContext,
-  setListId,
-}) {
+export default function TodoWrapperComponent() {
   const [checkedBoxes, setCheckedBoxes] = useState({
     filterComplete: false,
     filterIncomplete: false,
@@ -29,12 +23,17 @@ export default function TodoWrapperComponent({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState(null);
+  const [editMode, setEditMode] = useState({ taskToEdit: null, isOn: false });
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [paginationData, setPaginationData] = useState({
+    currentPage: 1,
+    itemsPerPage: 4,
+  });
+
+  const context = useContext(AppContext);
+  const { setTodoList, setListId, listId, userContext, todoList, isLoggedIn } =
+    context;
 
   const filteredTodoList = todoList?.filter((todo) => {
     if (
@@ -42,13 +41,17 @@ export default function TodoWrapperComponent({
       !todo.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
       return false;
-
+    // Defect: When on second page, and incomplete box is checked,
+    // no results show even though there are incompleted tasks on
+    // second page.
     if (checkedBoxes.filterComplete && !todo.isCompleted) return false;
 
     if (checkedBoxes.filterIncomplete && todo.isCompleted) return false;
 
     return true;
   });
+
+  const { currentPage, itemsPerPage } = paginationData;
 
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -72,11 +75,14 @@ export default function TodoWrapperComponent({
 
     const currentPageItemsAfterDelete = updatedTodoList.slice(
       firstItemIndex,
-      lastItemIndex
+      lastItemIndex,
     );
 
     if (currentPageItemsAfterDelete.length === 0 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setPaginationData((prev) => ({
+        ...prev,
+        currentPage: prev.currentPage - 1,
+      }));
     }
     setShowDeleteModal(false);
     setTaskToDelete(null);
@@ -94,19 +100,21 @@ export default function TodoWrapperComponent({
 
   const handleClose = () => {
     setShowEditModal(false);
-    setIsEditMode(false);
-    setTaskToEdit(null);
+    setEditMode((prev) => ({ ...prev, taskToEdit: null, isOn: false }));
   };
 
   const handleEditRequest = (task) => {
-    setTaskToEdit(task);
-    setIsEditMode(true);
+    setEditMode((prev) => ({ ...prev, taskToEdit: task, isOn: true }));
+
     setShowEditModal(true);
     console.log("task", task);
   };
 
   const handleEditSubmit = async (title, description) => {
-    const apiResult = await UpdateTaskAPI(taskToEdit.id, {
+    console.log(description, "before desc update"); //Debugging
+    // TODO: Defect - When saving an empty description value should update
+    // Value still shows previous value which was populated
+    const apiResult = await UpdateTaskAPI(editMode?.taskToEdit?.id, {
       title,
       description,
     });
@@ -159,7 +167,7 @@ export default function TodoWrapperComponent({
 
   const handleQueryChange = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1);
+    setPaginationData((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   const handleTaskStatusRequest = async (e, task) => {
@@ -207,9 +215,8 @@ export default function TodoWrapperComponent({
         />
         <PaginationComponent
           totalItems={filteredTodoList.length}
-          itemsPerPage={itemsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
+          paginationData={paginationData}
+          setPaginationData={setPaginationData}
         />
         <DeleteConfirmationModalCompononent
           show={showDeleteModal}
@@ -221,16 +228,15 @@ export default function TodoWrapperComponent({
           show={showEditModal}
           handleClose={handleClose}
           handleSubmit={handleEditSubmit}
-          isEditMode={isEditMode}
-          taskToEdit={taskToEdit}
+          editMode={editMode}
         />
       </div>
     ) : (
       <>
-        <h1> Lets get started on tracking your productivity.</h1>
+        {/* <h1> Lets get started on tracking your productivity.</h1>
         <button className="createNewListBtn" onClick={handleAddNewList}>
           Create New List
-        </button>
+        </button> */}
       </>
     )
   ) : (

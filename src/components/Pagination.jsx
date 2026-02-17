@@ -3,11 +3,12 @@ import "../styles/Pagination.css";
 
 const PaginationComponent = ({
   totalItems,
-  itemsPerPage,
-  setCurrentPage,
-  currentPage,
+  paginationData,
+  setPaginationData,
 }) => {
   let pages = [];
+
+  const { itemsPerPage, currentPage } = paginationData;
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
     pages.push(i);
@@ -20,7 +21,9 @@ const PaginationComponent = ({
           <button
             className={`paginationBtn ${currentPage === page ? "active" : ""}`}
             key={index}
-            onClick={() => setCurrentPage(page)}
+            onClick={() =>
+              setPaginationData((prev) => ({ ...prev, currentPage: page }))
+            }
           >
             {page}
           </button>
