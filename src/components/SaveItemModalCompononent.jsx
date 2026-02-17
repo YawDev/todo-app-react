@@ -12,13 +12,15 @@ export default function SaveItemModalCompononent({
   show,
   handleClose,
   handleSubmit,
-  isEditMode,
-  taskToEdit,
+  editMode = { taskToEdit: null, isOn: false },
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [IsValid, setIsValid] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { taskToEdit, isOn } = editMode;
+  let isEdit = isOn;
 
   useEffect(() => {
     if (!show) {
@@ -26,12 +28,12 @@ export default function SaveItemModalCompononent({
       setDescription("");
       setIsValid(false);
       setErrorMessage("");
-    } else if (isEditMode && taskToEdit) {
-      setTitle(taskToEdit.title);
-      setDescription(taskToEdit.description || "");
-      setIsValid(Validate(taskToEdit.title));
+    } else if (isEdit && taskToEdit) {
+      setTitle(taskToEdit?.title);
+      setDescription(taskToEdit?.description || "");
+      setIsValid(Validate(taskToEdit?.title));
     }
-  }, [show, isEditMode, taskToEdit]);
+  }, [show, isEdit, taskToEdit]);
 
   const titleOnChange = (e) => {
     const input = e.target.value;
@@ -51,8 +53,8 @@ export default function SaveItemModalCompononent({
 
   const handleSubmitModal = (e) => {
     e.preventDefault();
-    if (isEditMode && Validate(title)) {
-      handleSubmit(title, description, isEditMode, taskToEdit);
+    if (isEdit && Validate(title)) {
+      handleSubmit(title, description, isEdit, taskToEdit);
     } else if (Validate(title)) {
       handleSubmit(title, description, false, null);
     }
@@ -61,7 +63,9 @@ export default function SaveItemModalCompononent({
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{isEditMode ? "Edit Task" : "Add New Task"}</Modal.Title>
+        <Modal.Title>
+          {editMode?.isOn ? "Edit Task" : "Add New Task"}
+        </Modal.Title>
       </Modal.Header>
       <form className="mt-4" onSubmit={handleSubmitModal}>
         <label htmlFor="Title">Title</label>
@@ -93,7 +97,7 @@ export default function SaveItemModalCompononent({
         </div>
         <Modal.Footer>
           <Button disabled={!IsValid} type="submit">
-            {isEditMode ? "Update Task" : "Add Task"}
+            {isEdit ? "Update Task" : "Add Task"}
           </Button>
         </Modal.Footer>
       </form>
