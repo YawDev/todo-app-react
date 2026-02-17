@@ -8,9 +8,6 @@ const PaginationComponent = ({
 }) => {
   let pages = [];
 
-  console.log(paginationData);
-  console.log(totalItems);
-
   const { itemsPerPage, currentPage } = paginationData;
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
