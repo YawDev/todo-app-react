@@ -23,12 +23,13 @@ export default function TodoWrapperComponent() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState(null);
+  const [editMode, setEditMode] = useState({ taskToEdit: null, isOn: false });
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [paginationData, setPaginationData] = useState({
+    currentPage: 1,
+    itemsPerPage: 4,
+  });
 
   const context = useContext(AppContext);
   const { setTodoList, setListId, listId, userContext, todoList, isLoggedIn } =
@@ -47,6 +48,8 @@ export default function TodoWrapperComponent() {
 
     return true;
   });
+
+  const { currentPage, itemsPerPage } = paginationData;
 
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -74,7 +77,10 @@ export default function TodoWrapperComponent() {
     );
 
     if (currentPageItemsAfterDelete.length === 0 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setPaginationData((prev) => ({
+        ...prev,
+        currentPage: prev.currentPage - 1,
+      }));
     }
     setShowDeleteModal(false);
     setTaskToDelete(null);
@@ -92,19 +98,18 @@ export default function TodoWrapperComponent() {
 
   const handleClose = () => {
     setShowEditModal(false);
-    setIsEditMode(false);
-    setTaskToEdit(null);
+    setEditMode((prev) => ({ ...prev, taskToEdit: null, isOn: false }));
   };
 
   const handleEditRequest = (task) => {
-    setTaskToEdit(task);
-    setIsEditMode(true);
+    setEditMode((prev) => ({ ...prev, taskToEdit: task, isOn: true }));
+
     setShowEditModal(true);
     console.log("task", task);
   };
 
   const handleEditSubmit = async (title, description) => {
-    const apiResult = await UpdateTaskAPI(taskToEdit.id, {
+    const apiResult = await UpdateTaskAPI(editMode?.taskToEdit?.id, {
       title,
       description,
     });
@@ -157,7 +162,7 @@ export default function TodoWrapperComponent() {
 
   const handleQueryChange = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1);
+    setPaginationData((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   const handleTaskStatusRequest = async (e, task) => {
@@ -205,9 +210,8 @@ export default function TodoWrapperComponent() {
         />
         <PaginationComponent
           totalItems={filteredTodoList.length}
-          itemsPerPage={itemsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
+          paginationData={paginationData}
+          setPaginationData={setPaginationData}
         />
         <DeleteConfirmationModalCompononent
           show={showDeleteModal}
@@ -219,8 +223,7 @@ export default function TodoWrapperComponent() {
           show={showEditModal}
           handleClose={handleClose}
           handleSubmit={handleEditSubmit}
-          isEditMode={isEditMode}
-          taskToEdit={taskToEdit}
+          editMode={editMode}
         />
       </div>
     ) : (
