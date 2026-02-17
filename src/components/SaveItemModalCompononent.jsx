@@ -14,49 +14,85 @@ export default function SaveItemModalCompononent({
   handleSubmit,
   editMode = { taskToEdit: null, isOn: false },
 }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [IsValid, setIsValid] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [formInput, setFormInput] = useState({
+    title: { value: "", error: "", isValid: false },
+    description: { value: "", error: "", isValid: false },
+  });
 
   const { taskToEdit, isOn } = editMode;
   let isEdit = isOn;
 
   useEffect(() => {
     if (!show) {
-      setTitle("");
-      setDescription("");
-      setIsValid(false);
-      setErrorMessage("");
+      setFormInput((prev) => ({
+        ...prev,
+        title: {
+          ...prev.title,
+          value: "",
+          error: "",
+          isValid: false,
+        },
+        description: {
+          ...prev.description,
+          value: "",
+        },
+      }));
     } else if (isEdit && taskToEdit) {
-      setTitle(taskToEdit?.title);
-      setDescription(taskToEdit?.description || "");
-      setIsValid(Validate(taskToEdit?.title));
+      setFormInput((prev) => ({
+        ...prev,
+        title: {
+          ...prev.title,
+          value: taskToEdit?.title,
+          isValid: Validate(taskToEdit?.title),
+        },
+        description: {
+          ...prev.description,
+          value: taskToEdit?.description || "",
+        },
+      }));
     }
   }, [show, isEdit, taskToEdit]);
 
   const titleOnChange = (e) => {
     const input = e.target.value;
-    setTitle(input);
-    if (!input.trim()) {
-      setErrorMessage("Title is required");
-      setIsValid(false);
-    } else {
-      setErrorMessage("");
-      setIsValid(Validate(input));
-    }
+    setFormInput((prev) => ({
+      ...prev,
+      title: {
+        ...prev.title,
+        value: input,
+        error: !input.trim() ? "Title is required" : "",
+        isValid: Validate(input),
+      },
+    }));
   };
 
   const descriptionOnChange = (e) => {
-    setDescription(e.target.value);
+    const input = e.target.value;
+    setFormInput((prev) => ({
+      ...prev,
+      description: {
+        ...prev.description,
+        value: input,
+      },
+    }));
   };
 
   const handleSubmitModal = (e) => {
     e.preventDefault();
-    if (isEdit && Validate(title)) {
-      handleSubmit(title, description, isEdit, taskToEdit);
-    } else if (Validate(title)) {
-      handleSubmit(title, description, false, null);
+    if (isEdit && Validate(formInput.title.value)) {
+      handleSubmit(
+        formInput.title.value,
+        formInput.description.value,
+        isEdit,
+        taskToEdit,
+      );
+    } else if (Validate(formInput.title.value)) {
+      handleSubmit(
+        formInput.title.value,
+        formInput.description.value,
+        false,
+        null,
+      );
     }
   };
 
@@ -75,12 +111,14 @@ export default function SaveItemModalCompononent({
             type="text"
             name="Title"
             id="title"
-            value={title}
+            value={formInput.title.value}
             placeholder="Add Title"
             onChange={titleOnChange}
           />
-          {errorMessage && (
-            <div style={{ color: "red", fontSize: "12px" }}>{errorMessage}</div>
+          {formInput.title.error && (
+            <div style={{ color: "red", fontSize: "12px" }}>
+              {formInput.title.error}
+            </div>
           )}
         </div>
         <label htmlFor="Description">Description</label>
@@ -91,12 +129,12 @@ export default function SaveItemModalCompononent({
             name="Description"
             id="description"
             placeholder="Add Description"
-            value={description}
+            value={formInput.description.value}
             onChange={descriptionOnChange}
           />
         </div>
         <Modal.Footer>
-          <Button disabled={!IsValid} type="submit">
+          <Button disabled={!formInput.title.isValid} type="submit">
             {isEdit ? "Update Task" : "Add Task"}
           </Button>
         </Modal.Footer>

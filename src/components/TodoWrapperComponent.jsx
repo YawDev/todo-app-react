@@ -41,7 +41,9 @@ export default function TodoWrapperComponent() {
       !todo.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
       return false;
-
+    // Defect: When on second page, and incomplete box is checked,
+    // no results show even though there are incompleted tasks on
+    // second page.
     if (checkedBoxes.filterComplete && !todo.isCompleted) return false;
 
     if (checkedBoxes.filterIncomplete && todo.isCompleted) return false;
@@ -109,6 +111,9 @@ export default function TodoWrapperComponent() {
   };
 
   const handleEditSubmit = async (title, description) => {
+    console.log(description, "before desc update"); //Debugging
+    // TODO: Defect - When saving an empty description value should update
+    // Value still shows previous value which was populated
     const apiResult = await UpdateTaskAPI(editMode?.taskToEdit?.id, {
       title,
       description,
