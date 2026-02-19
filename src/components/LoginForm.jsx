@@ -2,14 +2,15 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { LoginAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AppContext from "../utils/Context";
 
-export default function LoginForm({
-  isLoggedIn,
-  setIsLoggedIn,
-  setUserContext,
-}) {
+export default function LoginForm() {
   const navigate = useNavigate();
+
+  const context = useContext(AppContext);
+  if (context === null) throw Error("Context not initialized");
+
   const [showAlert, setShowAlert] = useState(false);
 
   const [formState, setFormState] = useState({
@@ -19,6 +20,7 @@ export default function LoginForm({
     isValid: false,
   });
 
+  const { setIsLoggedIn, setUserContext, isLoggedIn } = context;
   const { username, password, apiError, isValid } = formState;
 
   useEffect(() => {
