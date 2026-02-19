@@ -7,53 +7,33 @@ import "../styles/SignUp.css";
 
 function RegistrationForm({ isLoggedIn }) {
   const navigate = useNavigate();
+  const [newUsername, setNewUserName] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [IsValid, setIsValid] = useState(false);
 
-  const [formState, setFormState] = useState({
-    newUsername: { value: "", error: "", isValid: false },
-    newPassword: { value: "", error: "", isValid: false },
-    confirmPassword: { value: "", error: "", isValid: false },
-    apiMessage: "",
-  });
+  const [usernameError, setUserNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirmError, setPasswordConfirmError] = useState("");
 
+  const [apiMessage, setApiMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const { newUsername, newPassword, confirmPassword, apiMessage } = formState;
   useEffect(() => {
+    setNewUserName("");
+    setNewPassword("");
     setIsValid(false);
+    setUserNameError("");
+    setPasswordError("");
+    setApiMessage("");
     setShowAlert(false);
-    setFormState((prev) => ({
-      ...prev,
-      newUsername: {
-        ...prev.newUsername,
-        value: "",
-        error: "",
-        isValid: false,
-      },
-      newPassword: {
-        ...prev.newPassword,
-        value: "",
-        error: "",
-        isValid: false,
-      },
-      confirmPassword: {
-        ...prev.confirmPassword,
-        value: "",
-        error: "",
-        isValid: false,
-      },
-      apiMessage: "",
-    }));
   }, []);
 
   useEffect(() => {
-    if (formState.apiMessage) {
+    if (apiMessage) {
       setShowAlert(true);
       const timer = setTimeout(() => {
         setShowAlert(false);
-        setFormState((prev) => ({
-          ...prev,
-          apiMessage: "",
-        }));
+        setApiMessage("");
       }, 4000);
       return () => clearTimeout(timer);
     }
@@ -61,132 +41,55 @@ function RegistrationForm({ isLoggedIn }) {
 
   useEffect(() => {
     const isValidForm =
-      newUsername.value.trim() &&
-      newPassword.value.trim() &&
-      confirmPassword.value.trim() &&
-      newPassword.value === confirmPassword.value.trim();
+      newUsername.trim() &&
+      newPassword.trim() &&
+      passwordConfirm.trim() &&
+      newPassword === passwordConfirm;
 
     setIsValid(isValidForm);
-  }, [newUsername.value, newPassword.value, confirmPassword.value]);
+  }, [newUsername, newPassword, passwordConfirm]);
 
   const usernameOnChange = (e) => {
     const input = e.target.value;
-    setFormState((prev) => ({
-      ...prev,
-      newUsername: {
-        ...prev.newUsername,
-        value: input,
-      },
-    }));
+    setNewUserName(input);
     if (!input.trim()) {
-      setFormState((prev) => ({
-        ...prev,
-        newUsername: {
-          ...prev.newUsername,
-          error: "Username is required",
-        },
-      }));
+      setUserNameError("Username is required");
+      setIsValid(false);
     } else {
-      setFormState((prev) => ({
-        ...prev,
-        newUsername: {
-          ...prev.newUsername,
-          error: "",
-        },
-      }));
+      setUserNameError("");
     }
   };
 
   const passwordOnChange = (e) => {
     const input = e.target.value;
-    setFormState((prev) => ({
-      ...prev,
-      newPassword: {
-        ...prev.newPassword,
-        value: input,
-      },
-    }));
+    setNewPassword(input);
     if (!input.trim()) {
-      setFormState((prev) => ({
-        ...prev,
-        newPassword: {
-          ...prev.newPassword,
-          error: "Password is required",
-        },
-        confirmPassword: {
-          ...prev.confirmPassword,
-          error: "",
-        },
-      }));
+      setPasswordError("Password is required");
+      setPasswordConfirmError("");
       setIsValid(false);
-    } else if (confirmPassword.value && input !== confirmPassword.value) {
-      setFormState((prev) => ({
-        ...prev,
-        newPassword: {
-          ...prev.newPassword,
-          error: "Passwords need to match",
-        },
-        confirmPassword: {
-          ...prev.confirmPassword,
-          error: "Passwords need to match",
-        },
-      }));
+    } else if (passwordConfirm && input !== passwordConfirm) {
+      setPasswordError("Passwords need to match");
+      setPasswordConfirmError("Passwords need to match");
       setIsValid(false);
     } else {
-      setFormState((prev) => ({
-        ...prev,
-        newPassword: {
-          ...prev.newPassword,
-          error: "",
-        },
-      }));
-      if (confirmPassword.value) {
-        setFormState((prev) => ({
-          ...prev,
-          confirmPassword: {
-            ...prev.confirmPassword,
-            error: "",
-          },
-        }));
+      setPasswordError("");
+      if (passwordConfirm) {
+        setPasswordConfirmError("");
       }
     }
   };
 
   const passwordConfirmOnChange = (e) => {
     const input = e.target.value;
-    setFormState((prev) => ({
-      ...prev,
-      confirmPassword: {
-        ...prev.confirmPassword,
-        value: input,
-      },
-    }));
+    setPasswordConfirm(input);
     if (!input.trim()) {
+      setPasswordConfirmError("Confirm password required");
       setIsValid(false);
-      setFormState((prev) => ({
-        ...prev,
-        confirmPassword: {
-          ...prev.confirmPassword,
-          error: "Confirm password required",
-        },
-      }));
-    } else if (newPassword.value && input !== newPassword.value) {
+    } else if (newPassword && input !== newPassword) {
+      setPasswordConfirmError("Passwords need to match");
       setIsValid(false);
-      setFormState((prev) => ({
-        ...prev,
-        confirmPassword: {
-          ...prev.confirmPassword,
-          error: "Passwords need to match",
-        },
-      }));
     } else {
-      setFormState((prev) => ({
-        ...prev,
-        confirmPassword: {
-          ...prev.confirmPassword,
-          error: "",
-        },
-      }));
+      setPasswordConfirmError("");
     }
   };
 
@@ -194,25 +97,19 @@ function RegistrationForm({ isLoggedIn }) {
     e.preventDefault();
     try {
       const data = await RegisterAPI({
-        Username: newUsername.value,
-        Password: newPassword.value,
+        Username: newUsername,
+        Password: newPassword,
       });
       const { status: httpStatus, message } = data;
       if (httpStatus === 200) {
         alert("Account successfully created");
         navigate("/login");
       } else if (httpStatus === 400) {
-        setFormState((prev) => ({
-          ...prev,
-          apiMessage: message,
-        }));
+        setApiMessage(message);
       }
     } catch (error) {
       console.log("Login failed", error);
-      setFormState((prev) => ({
-        ...prev,
-        apiMessage: "We apologize, Internal Server Error.",
-      }));
+      setApiMessage("We apologize, Internal Server Error.");
     }
   };
 
@@ -243,9 +140,9 @@ function RegistrationForm({ isLoggedIn }) {
               id="username"
               onChange={usernameOnChange}
             />
-            {newUsername.error && (
+            {usernameError && (
               <div style={{ color: "red", fontSize: "15px" }}>
-                {newUsername.error}
+                {usernameError}
               </div>
             )}
           </div>
@@ -260,9 +157,9 @@ function RegistrationForm({ isLoggedIn }) {
             />
             <div className="signup-hint">Secure password required.</div>
 
-            {newPassword.error && (
+            {passwordError && (
               <div style={{ color: "red", fontSize: "15px" }}>
-                {newPassword.error}
+                {passwordError}
               </div>
             )}
           </div>
@@ -276,9 +173,9 @@ function RegistrationForm({ isLoggedIn }) {
               onChange={passwordConfirmOnChange}
             />
 
-            {confirmPassword.error && (
+            {passwordConfirmError && (
               <div style={{ color: "red", fontSize: "15px" }}>
-                {confirmPassword.error}
+                {passwordConfirmError}
               </div>
             )}
           </div>
