@@ -76,12 +76,7 @@ function App() {
                 <HomePage isLoggedIn={isLoggedIn} userContext={userContext} />
               }
             />
-            <Route
-              path="/account"
-              element={
-                <Account isLoggedIn={isLoggedIn} userContext={userContext} />
-              }
-            />
+            <Route path="/account" element={<Account />} />
 
             <Route path="/todos" element={<Todo />} />
             <Route path="/login" element={<Login />} />
