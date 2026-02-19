@@ -1,17 +1,8 @@
 import { Button, Form, Alert } from "react-bootstrap";
 import { LoginAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
-import logoImg from "../assets/react.svg";
 import "../styles/Login.css";
 import { useState, useEffect } from "react";
-import { validate } from "uuid";
-
-const Validate = (username, password) => {
-  if (!username || !username.trim() || !password || !password.trim()) {
-    return false;
-  }
-  return true;
-};
 
 export default function LoginForm({
   isLoggedIn,
@@ -19,22 +10,34 @@ export default function LoginForm({
   setUserContext,
 }) {
   const navigate = useNavigate();
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [IsValid, setIsValid] = useState(false);
-  const [usernameError, setUserNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [apiError, setApiError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
+  const [formState, setFormState] = useState({
+    username: { value: "", error: "" },
+    password: { value: "", error: "" },
+    apiError: "",
+    isValid: false,
+  });
+
+  const { username, password, apiError, isValid } = formState;
+
   useEffect(() => {
-    setUserName("");
-    setPassword("");
-    setIsValid(false);
-    setUserNameError("");
-    setPasswordError("");
-    setApiError("");
     setShowAlert(false);
+    setFormState((prev) => ({
+      ...prev,
+      username: {
+        ...prev.username,
+        value: "",
+        error: "",
+      },
+      password: {
+        ...prev.password,
+        value: "",
+        error: "",
+      },
+      isValid: false,
+      apiError: "",
+    }));
   }, []);
 
   useEffect(() => {
@@ -42,7 +45,10 @@ export default function LoginForm({
       setShowAlert(true);
       const timer = setTimeout(() => {
         setShowAlert(false);
-        setApiError("");
+        setFormState((prev) => ({
+          ...prev,
+          apiError: "",
+        }));
       }, 4000);
       return () => clearTimeout(timer);
     }
@@ -50,25 +56,61 @@ export default function LoginForm({
 
   const usernameOnChange = (e) => {
     const input = e.target.value;
-    setUserName(input);
+    setFormState((prev) => ({
+      ...prev,
+      username: {
+        ...prev.username,
+        value: input,
+      },
+    }));
     if (!input.trim()) {
-      setUserNameError("Username is required");
-      setIsValid(false);
+      setFormState((prev) => ({
+        ...prev,
+        username: {
+          ...prev.username,
+          error: "Username is required",
+        },
+        isValid: false,
+      }));
     } else {
-      setUserNameError("");
-      setIsValid(Validate(input, password));
+      setFormState((prev) => ({
+        ...prev,
+        username: {
+          ...prev.username,
+          error: "",
+        },
+        isValid: Validate(input, password.value),
+      }));
     }
   };
 
   const passwordOnChange = (e) => {
     const input = e.target.value;
-    setPassword(input);
+    setFormState((prev) => ({
+      ...prev,
+      password: {
+        ...prev.password,
+        value: input,
+      },
+    }));
     if (!input.trim()) {
-      setPasswordError("Password is required");
-      setIsValid(false);
+      setFormState((prev) => ({
+        ...prev,
+        password: {
+          ...prev.password,
+          error: "Password is required",
+        },
+        isValid: false,
+      }));
     } else {
-      setPasswordError("");
-      setIsValid(Validate(username, input));
+      setFormState((prev) => ({
+        ...prev,
+        password: {
+          ...prev.password,
+          error: "",
+        },
+        isValid: Validate(username.value, input),
+      }));
     }
   };
 
@@ -86,11 +128,17 @@ export default function LoginForm({
         setUserContext(data.authenticatedUser);
         navigate("/todos");
       } else if (httpStatus === 404 || httpStatus === 400) {
-        setApiError(message);
+        setFormState((prev) => ({
+          ...prev,
+          apiError: message,
+        }));
       }
     } catch (error) {
       console.log("Login failed", error);
-      setApiError("We apologize, Internal Server Error.");
+      setFormState((prev) => ({
+        ...prev,
+        apiError: "We apologize, Internal Server Error.",
+      }));
     }
   };
 
@@ -122,9 +170,9 @@ export default function LoginForm({
               id="username"
               onChange={usernameOnChange}
             />
-            {usernameError && (
+            {username.error && (
               <div style={{ color: "red", fontSize: "15px" }}>
-                {usernameError}
+                {username.error}
               </div>
             )}
           </div>
@@ -138,9 +186,9 @@ export default function LoginForm({
               id="password"
               onChange={passwordOnChange}
             />
-            {passwordError && (
+            {password.error && (
               <div style={{ color: "red", fontSize: "15px" }}>
-                {passwordError}
+                {password.error}
               </div>
             )}
           </div>
@@ -152,7 +200,7 @@ export default function LoginForm({
             </label>
           </div>
 
-          <Button disabled={!IsValid} variant="primary" type="submit">
+          <Button disabled={!isValid} variant="primary" type="submit">
             Login
           </Button>
         </Form>
@@ -160,3 +208,10 @@ export default function LoginForm({
     </>
   );
 }
+
+const Validate = (username, password) => {
+  if (!username || !username.trim() || !password || !password.trim()) {
+    return false;
+  }
+  return true;
+};
