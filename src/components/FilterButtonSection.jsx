@@ -30,7 +30,7 @@ export default function FilterButtonSection({ checkedBoxes, setCheckedBoxes }) {
             onChange={(e) => handleChange(e)}
           />
           <label htmlFor="filterIncomplete" className="checkbox-label">
-            Not Done
+            Show incomplete
           </label>
         </>
       )}
@@ -44,7 +44,7 @@ export default function FilterButtonSection({ checkedBoxes, setCheckedBoxes }) {
             onChange={(e) => handleChange(e)}
           />
           <label htmlFor="filterComplete" className="checkbox-label">
-            Done
+            Show complete
           </label>
         </>
       )}

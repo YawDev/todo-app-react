@@ -13,7 +13,6 @@ import {
   UpdateTaskStatusAPI,
 } from "../utils/GoServiceTodo";
 import AppContext from "../utils/Context";
-import SelectItemsPerPage from "./SelectItemsPerPage";
 
 export default function TodoWrapperComponent() {
   const [checkedBoxes, setCheckedBoxes] = useState({
@@ -204,10 +203,6 @@ export default function TodoWrapperComponent() {
           listId={listId}
           userContext={userContext}
           handleQueryChange={handleQueryChange}
-        />
-        <SelectItemsPerPage
-          paginationData={paginationData}
-          setPaginationData={setPaginationData}
         />
         <TodoItemSection
           todoList={currentData}
