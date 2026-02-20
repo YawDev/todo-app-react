@@ -70,20 +70,12 @@ function App() {
           <TopNavBarComponent />
 
           <Routes>
-            <Route
-              path="/"
-              element={
-                <HomePage isLoggedIn={isLoggedIn} userContext={userContext} />
-              }
-            />
+            <Route path="/" element={<HomePage />} />
             <Route path="/account" element={<Account />} />
 
             <Route path="/todos" element={<Todo />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/register"
-              element={<Register isLoggedIn={isLoggedIn} />}
-            />
+            <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />

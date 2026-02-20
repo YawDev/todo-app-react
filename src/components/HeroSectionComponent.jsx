@@ -1,7 +1,12 @@
 import "../styles/HeroSection.css";
+import { useContext } from "react";
+import AppContext from "../utils/Context";
 
-const HeroSectionComponent = ({ userContext, isLoggedIn }) => {
-  console.log(isLoggedIn, "hero");
+const HeroSectionComponent = () => {
+  const context = useContext(AppContext);
+  if (context === null) throw Error("Context not initialized");
+
+  const { isLoggedIn } = context;
   return isLoggedIn ? (
     <>
       {" "}

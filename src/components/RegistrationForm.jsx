@@ -2,12 +2,18 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { RegisterAPI } from "../utils/GoServiceAuth";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "../styles/SignUp.css";
+import AppContext from "../utils/Context";
 
-function RegistrationForm({ isLoggedIn }) {
+function RegistrationForm() {
   const navigate = useNavigate();
   const [IsValid, setIsValid] = useState(false);
+
+  const context = useContext(AppContext);
+
+  const { isLoggedIn } = context;
+  if (context === null) throw Error("Context not initialized");
 
   const [formState, setFormState] = useState({
     newUsername: { value: "", error: "", isValid: false },
