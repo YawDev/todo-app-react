@@ -1,99 +1,115 @@
+/* =====================================================================
+   Footer — steel-navy shade matching the sidebar, modern + responsive.
+   Static (flows after content) so it never overlaps the page.
+   Offset to the right of the fixed sidebar via margin-left.
+   ===================================================================== */
 .footerSection {
-  background-color: #f5f5f5; /* Soft white */
-  color: #333;
-  padding: 20px 40px;
-  width: 100%;
-  font-family: "Montserrat", sans-serif;
+  margin-left: 248px;
+  background: var(--color-footer);
+  color: rgba(255, 255, 255, 0.78);
+  padding: 18px 40px;
+  font-family: var(--font-sans);
   font-size: 14px;
-  border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
-  z-index: 1000;
+  gap: 18px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  transition: margin-left 0.25s ease;
+}
+
+.app-shell.nav-collapsed .footerSection {
+  margin-left: 78px;
 }
 
 .footerSection p {
   margin: 0;
-  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-weight: 600;
+  color: #fff;
 }
 
-.footer-logo {
-  height: 20px;
+.footer-logo,
+.footer-img {
+  height: 18px;
   width: auto;
   vertical-align: middle;
 }
 
+/* Links ------------------------------------------------------------ */
+.footer-links {
+  display: flex;
+  gap: 8px;
+}
+
 .footer-links a {
-  margin-left: 20px;
-  color: #333;
+  color: rgba(255, 255, 255, 0.78);
   text-decoration: none;
   font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
 .footer-links a:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
+/* Support ---------------------------------------------------------- */
 .footer-support {
   display: flex;
-  gap: 20px; /* Increased gap to make it stand out more */
+  gap: 14px;
   align-items: center;
-  font-weight: 700; /* Make support text bolder */
-  color: #333; /* Darker color to make it more noticeable */
 }
 
 .footer-support .support-link {
-  color: #333;
-  font-weight: 700; /* Increased font-weight */
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+  font-size: 15px;
   text-decoration: none;
-  font-size: 16px; /* Slightly bigger font size */
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
 .footer-support .support-link:hover {
-  text-decoration: underline;
-  color: #007bff; /* Make hover effect blue to match accent color */
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .footer-support .chat-icon {
-  font-size: 22px; /* Larger icon size */
-  color: #333;
+  font-size: 20px;
+  line-height: 1;
   text-decoration: none;
+  transition: transform 0.18s ease;
 }
 
 .footer-support .chat-icon:hover {
-  color: #007bff; /* Highlight color for hover effect */
-}
-
-.footer-img {
-  height: 15px;
+  transform: scale(1.15);
 }
 
 .footerText {
   font-size: 10px;
 }
 
+/* Responsive ------------------------------------------------------- */
 @media (max-width: 768px) {
-  .footerSection {
+  .footerSection,
+  .app-shell.nav-collapsed .footerSection {
+    margin-left: 0;
     flex-direction: column;
     text-align: center;
-    gap: 10px;
-    padding: 20px;
+    gap: 14px;
+    padding: 22px 20px;
   }
 
-  .footer-links a {
-    margin: 0 10px;
-  }
-
+  .footer-links,
   .footer-support {
-    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

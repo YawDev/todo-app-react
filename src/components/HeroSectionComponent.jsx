@@ -12,6 +12,7 @@ const HeroSectionComponent = () => {
       {" "}
       <div className="hero-section">
         <div className="hero-content">
+          <span className="hero-eyebrow">✦ Your personal task companion</span>
           <h1>Organize Your Day, Your Way</h1>
           <p>Plan smarter. Stay focused. Crush your goals.</p>
           <div className="hero-buttons">

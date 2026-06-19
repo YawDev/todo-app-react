@@ -1,26 +1,28 @@
 import "../styles/Footer.css";
-import footerImg from "../assets/vite.svg";
+import footerImg from "../assets/todo-icon.svg";
+import { useLocation } from "react-router-dom";
 export default function FooterComponent() {
+  const location = useLocation();
+
+  const { pathname } = location;
+
+  const showFooter = !["/", "/todos"].includes(pathname);
+
   return (
-    <div className="footerSection">
-      <p>
-        Todo Task App - Vite
-        <img src={footerImg} className="footer-img " />
-      </p>
-      <div className="footer-links">
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/contact">Contact</a>
-      </div>
-      <div className="footer-support">
-        <a href="/support" className="support-link">
-          Customer Support
-        </a>
-        {/* You can add an icon for chat */}
-        <a href="/chat" className="chat-icon" aria-label="Live Chat">
-          💬
-        </a>
-      </div>
-    </div>
+    <>
+      {showFooter && (
+        <div className="footerSection">
+          <p>
+            <img src={footerImg} className="footer-img" alt="Todo App logo" />
+            Todo App
+          </p>
+          <div className="footer-links">
+            <a href="/about">About</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/contact">Contact</a>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
