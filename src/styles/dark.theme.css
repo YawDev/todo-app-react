@@ -1,0 +1,59 @@
+/* =====================================================================
+   Dark theme — token overrides for the steel-blue palette.
+   Activate by setting  data-theme="dark"  on the <html> element:
+       document.documentElement.setAttribute("data-theme", "dark");
+   Remove the attribute (or set "light") to go back.
+
+   Only color tokens change here — every component reads them via
+   var(--color-*), so the whole app flips automatically. Import this file
+   anywhere after theme.css; the :root[...] selector wins on specificity
+   regardless of order.
+   ===================================================================== */
+:root[data-theme="dark"] {
+  /* Make native UI (scrollbars, form controls) render dark */
+  color-scheme: dark;
+
+  /* Brand — mid-steel fill that sits calmly on dark; hover LIGHTENS */
+  --color-brand: #4a708b; /* primary fill (buttons, active nav, avatar) */
+  --color-brand-dark: #5e83a0; /* hover — lighter than base on dark */
+  --color-brand-darker: #7299bd; /* deepest emphasis / text on dark surfaces */
+  --color-brand-light: #8aa8c2; /* secondary / links */
+  --color-brand-muted: #54697a; /* borders / soft accents */
+  --color-brand-soft: #243441; /* tints / badge fills */
+
+  /* Ink (text) — near-white → muted steel */
+  --color-ink: #eaf0f5; /* headings */
+  --color-ink-soft: #d3dfe8; /* strong text */
+  --color-body: #b3c1cc; /* body text */
+  --color-muted: #8597a3; /* secondary text */
+
+  /* Surfaces — deep steel navy, layered light → dark */
+  --color-bg: #111a22; /* page background */
+  --color-surface: #1a242e; /* cards / panels */
+  --color-surface-alt: #212e39; /* subtle fills / inputs */
+  --color-line: #2d3b47; /* hairlines */
+  --color-footer: #0c141a; /* footer — deepest shade */
+
+  /* Semantic — nudged lighter for contrast on dark */
+  --color-success: #3fa183;
+  --color-success-dark: #2f8f6f;
+  --color-success-soft: #1e3329; /* dark tint fill */
+  --color-danger: #d36771;
+  --color-danger-dark: #c0444b;
+  --color-danger-soft: #3a2528; /* dark tint fill */
+  --color-warning: #d2a85a;
+  --color-warning-soft: #382f16; /* dark tint fill */
+
+  /* Gradient + elevation (shadows go heavier on dark) */
+  --gradient-brand: linear-gradient(
+    135deg,
+    #1c2e3a 0%,
+    #355169 55%,
+    #4a708b 100%
+  );
+  --gradient-sidebar: linear-gradient(180deg, #18222c 0%, #11191f 100%);
+  --gradient-hero: linear-gradient(135deg, #0f1922 0%, #1b2e3b 55%, #2c4659 100%);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
+}

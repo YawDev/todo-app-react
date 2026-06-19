@@ -1,37 +1,147 @@
-.userProfileContainer {
-  max-width: 720px;
-  margin: 80px auto;
-  padding: 50px;
-  border-radius: 24px;
-  background-color: #ffffff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+/* =====================================================================
+   Account page — profile card, steel-blue theme.
+   ===================================================================== */
+.account-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+
+.account-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
   text-align: center;
-  font-family: "Montserrat", sans-serif;
-  animation: fadeIn 0.4s ease-in-out;
+  overflow: hidden;
+  padding-bottom: 32px;
+  animation: account-fade 0.4s ease;
 }
 
-.userProfileContainer h1 {
-  font-size: 2.6rem;
-  margin-bottom: 20px;
-  color: #242323;
-}
-
-.userProfileContainer h3 {
-  font-size: 1.6rem;
-  margin-bottom: 30px;
-  color: #3d3c3c;
+/* Cover + avatar --------------------------------------------------- */
+.account-cover {
+  height: 104px;
+  background: var(--gradient-brand);
 }
 
 .account-avatar {
-  width: 160px;
-  height: 160px;
+  width: 104px;
+  height: 104px;
+  margin: -52px auto 0;
+  display: grid;
+  place-items: center;
   border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #777779;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand) 0%,
+    var(--color-brand-light) 100%
+  );
+  border: 5px solid var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
 
-@keyframes fadeIn {
+.account-name {
+  margin: 16px 24px 8px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-ink);
+  word-break: break-word;
+}
+
+.account-role {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: var(--color-brand-soft);
+  color: var(--color-brand-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Actions ---------------------------------------------------------- */
+.account-actions {
+  display: flex;
+  gap: 12px;
+  margin: 28px 28px 0;
+}
+
+.account-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.account-btn--primary {
+  background: var(--color-brand);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(74, 112, 139, 0.35);
+}
+
+.account-btn--primary:hover {
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(74, 112, 139, 0.42);
+}
+
+.account-btn--ghost {
+  background: var(--color-surface-alt);
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-line);
+}
+
+.account-btn--ghost:hover {
+  background: var(--color-brand-soft);
+  color: var(--color-brand-dark);
+}
+
+/* Signed-out prompt ------------------------------------------------ */
+.account-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: account-fade 0.4s ease;
+}
+
+.account-signin h1 {
+  font-size: 1.6rem;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+
+.account-signin p {
+  color: var(--color-muted);
+  margin-bottom: 26px;
+}
+
+.account-signin .account-btn {
+  display: inline-block;
+  flex: none;
+  min-width: 160px;
+}
+
+@keyframes account-fade {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -39,5 +149,11 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .account-actions {
+    flex-direction: column;
   }
 }

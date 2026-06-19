@@ -1,63 +1,127 @@
-/* Login.css */
+/* =====================================================================
+   Auth pages (Login + Register) — shared layout, card, fields, button.
+   Imported by both LoginForm and RegistrationForm.
+   ===================================================================== */
 
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-.login-form-section {
-  height: 100vh;
+/* Section wrapper — vertical centering is handled by .app-main */
+.login-form-section,
+.signup-form-section {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  font-family: "Montserrat", sans-serif;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
 }
 
-.login-form {
-  background-color: #ffffff;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+/* Back to homepage link ------------------------------------------- */
+.backToHomePage {
   width: 100%;
-  max-width: 300px; /* Force it wider */
-  min-width: 500px; /* Helps on larger screens */
+  max-width: 440px;
+  margin: 0 auto 16px;
+  display: flex;
 }
 
-.login-form h4 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: center;
+.back-link {
+  display: inline-flex;
   align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-brand-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.back-link:hover {
+  background: var(--color-brand-soft);
+  color: var(--color-brand-darker);
+  transform: translateX(-2px);
+}
+
+/* Card ------------------------------------------------------------- */
+.login-form,
+.signup-form {
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+  background: var(--color-surface);
+  padding: 2.5rem 2.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-form h4,
+.signup-form h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  font-weight: bold;
+  margin-bottom: 1.75rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-ink);
 }
 
-.login-form img {
-  width: 30px;
-  height: 30px;
+.login-form img,
+.signup-form img {
+  width: 28px;
+  height: 28px;
 }
 
-.login-form-group {
-  margin-bottom: 1.2rem;
+/* Field groups ----------------------------------------------------- */
+.login-form-group,
+.signup-form-group {
+  margin-bottom: 1.25rem;
 }
 
-.login-form-group .form-label {
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
+.login-form-group .form-label,
+.signup-form-group .form-label {
   display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
-.login-form-group .form-control {
-  border-radius: 6px;
-  padding: 0.6rem;
-  border: 1px solid #ced4da;
-  font-size: 1rem;
+.login-form-group .form-control,
+.signup-form-group .form-control {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.login-form-group .form-control::placeholder,
+.signup-form-group .form-control::placeholder {
+  color: #9aa8b2;
+}
+
+.login-form-group .form-control:focus,
+.signup-form-group .form-control:focus {
+  outline: none;
+  background: var(--color-surface);
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(74, 112, 139, 0.18);
+}
+
+.signup-hint {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
 }
 
 .checkbox-group {
@@ -65,18 +129,50 @@ html {
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .checkbox-label {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: var(--color-body);
 }
 
-button[type="submit"] {
+/* Submit button (overrides Bootstrap .btn-primary) ----------------- */
+.login-form button[type="submit"],
+.signup-form button[type="submit"] {
   width: 100%;
-  padding: 0.6rem;
-  font-weight: bold;
+  margin-top: 0.25rem;
+  padding: 0.8rem;
   font-size: 1rem;
-  border-radius: 6px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-brand);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(74, 112, 139, 0.35);
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.login-form button[type="submit"]:hover,
+.signup-form button[type="submit"]:hover {
+  background: var(--color-brand-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(74, 112, 139, 0.42);
+}
+
+.login-form button[type="submit"]:disabled,
+.signup-form button[type="submit"]:disabled {
+  background: var(--color-brand-muted);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .login-form,
+  .signup-form {
+    padding: 1.75rem 1.5rem;
+  }
 }

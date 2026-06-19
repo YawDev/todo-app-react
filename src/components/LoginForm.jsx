@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import { useState, useEffect, useContext } from "react";
 import AppContext from "../utils/Context";
+import RememberMe from "./RememberMe";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -123,6 +124,15 @@ export default function LoginForm() {
         Username: e.target.username.value,
         Password: e.target.password.value,
       };
+
+      if (!Validate(user.Username, user.Password)) {
+        setFormState((prev) => ({
+          ...prev,
+          apiError: "Please fill in all required fields.",
+        }));
+        return;
+      }
+
       const data = await LoginAPI(user);
       const { status: httpStatus, message } = data;
       if (httpStatus === 200) {
@@ -195,14 +205,11 @@ export default function LoginForm() {
             )}
           </div>
 
-          <div className="login-form-group checkbox-group">
-            <input type="checkbox" id="remember-me" />
-            <label htmlFor="remember-me" className="checkbox-label">
-              Keep me logged in
-            </label>
-          </div>
+          {/* TODO: "Keep me logged in" is not wired up yet — re-enable
+              <RememberMe /> once the backend supports persistent sessions. */}
+          {/* <RememberMe /> */}
 
-          <Button disabled={!isValid} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Login
           </Button>
         </Form>

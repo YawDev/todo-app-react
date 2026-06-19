@@ -1,0 +1,111 @@
+/* =====================================================================
+   Global theme — Tailwind 4 + steel-blue professional palette
+   Brand colors: #4a708b (primary) · #6b8cb2 (secondary) · #a1b3cb (muted)
+   Tokens defined in @theme are available BOTH as Tailwind utilities
+   (e.g. bg-brand, text-brand-dark) and as CSS vars (var(--color-brand)).
+   ===================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* Brand — steel blue */
+  --color-brand: #4a708b; /* primary */
+  --color-brand-dark: #3a5a72; /* hover / deep */
+  --color-brand-darker: #2c4659; /* active / headings on light */
+  --color-brand-light: #6b8cb2; /* secondary */
+  --color-brand-muted: #a1b3cb; /* borders / soft accents */
+  --color-brand-soft: #e7edf3; /* tints / badge fills */
+
+  /* Ink (text) */
+  --color-ink: #233240; /* headings */
+  --color-ink-soft: #2c4659; /* strong text */
+  --color-body: #41525f; /* body text */
+  --color-muted: #6b7d88; /* secondary text */
+
+  /* Surfaces */
+  --color-bg: #dde6f1; /* page background — periwinkle steel tint */
+  --color-surface: #ffffff; /* cards / panels */
+  --color-surface-alt: #f3f6f9; /* subtle fills */
+  --color-line: #d7e0e8; /* hairlines */
+  --color-footer: #1f323e; /* footer — deep steel, complements the sidebar */
+
+  /* Semantic */
+  --color-success: #2f8f6f;
+  --color-success-dark: #25735a;
+  --color-success-soft: #e2efe9; /* tint fill */
+  --color-danger: #c0444b;
+  --color-danger-dark: #9e353b;
+  --color-danger-soft: #f8e3e4; /* tint fill (delete buttons, etc.) */
+  --color-warning: #97601a;
+  --color-warning-soft: #fbeedd; /* tint fill */
+
+  /* Gradient + elevation */
+  --gradient-brand: linear-gradient(
+    135deg,
+    #2c4659 0%,
+    #4a708b 55%,
+    #6b8cb2 100%
+  );
+  --gradient-sidebar: linear-gradient(180deg, #2c4659 0%, #223947 100%);
+  --gradient-hero: linear-gradient(135deg, #2c4659 0%, #4a708b 55%, #6b8cb2 100%);
+  --shadow-sm: 0 1px 3px rgba(35, 50, 64, 0.08);
+  --shadow-md: 0 4px 14px rgba(35, 50, 64, 0.1);
+  --shadow-lg: 0 14px 36px rgba(44, 70, 89, 0.18);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base styles                                                         */
+/* ------------------------------------------------------------------ */
+body {
+  font-family: var(--font-sans);
+  color: var(--color-body);
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------ */
+/* App shell — sticky-footer column; content offset for the sidebar    */
+/* ------------------------------------------------------------------ */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  margin-left: 248px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: margin-left 0.25s ease;
+}
+
+.app-shell.nav-collapsed .app-main {
+  margin-left: 78px;
+}
+
+@media (max-width: 768px) {
+  /* Sidebar is an overlay drawer on mobile — content spans full width */
+  .app-main,
+  .app-shell.nav-collapsed .app-main {
+    margin-left: 0;
+    padding-top: 64px; /* clear the fixed hamburger button */
+  }
+}

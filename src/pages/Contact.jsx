@@ -1,24 +1,67 @@
+import "../styles/InfoPage.css";
+import { FiMail, FiGithub, FiAlertCircle } from "react-icons/fi";
+
 const Contact = () => {
   return (
-    <div className="max-w-3xl mx-auto py-10 px-6 text-gray-800">
-      <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
-      <p className="mb-4">
-        We’d love to hear from you! Whether you have feedback, feature requests,
-        or questions, please reach out.
+    <div className="info-page info-narrow">
+      <span className="info-eyebrow">Get in touch</span>
+      <h1 className="info-title">Contact</h1>
+      <p className="info-lead">
+        Todo Task App is a personal portfolio project. If you&apos;d like to talk
+        through the code, the React/Go architecture, or anything else, here are
+        the best ways to reach me.
       </p>
-      <p className="mb-4">
-        📧 Email:{" "}
-        <a
-          href="mailto:support@todotaskapp.com"
-          className="text-blue-600 hover:underline"
-        >
-          support@todotaskapp.com
-        </a>
-      </p>
-      <p>
-        Our support team aims to respond within 24–48 hours. Thank you for
-        helping us improve Todo Task App!
-      </p>
+
+      <section className="info-section">
+        <div className="info-grid">
+          <article className="info-card is-interactive">
+            <div className="info-card-icon">
+              <FiMail />
+            </div>
+            <h3>Email</h3>
+            <p>
+              Questions or feedback about the project —{" "}
+              <a href="mailto:jason.ampah.dev@gmail.com">
+                jason.ampah.dev@gmail.com
+              </a>
+            </p>
+          </article>
+
+          <article className="info-card is-interactive">
+            <div className="info-card-icon">
+              <FiGithub />
+            </div>
+            <h3>Source code</h3>
+            <p>
+              Browse the Go REST API on{" "}
+              <a
+                href="https://github.com/YawDev/todo-web-api"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+              .
+            </p>
+          </article>
+
+          <article className="info-card is-interactive">
+            <div className="info-card-icon">
+              <FiAlertCircle />
+            </div>
+            <h3>Found an issue?</h3>
+            <p>
+              Spotted a bug in the demo? Open an issue on the repository and I&apos;ll
+              take a look.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <div className="info-note">
+        This is a demo, so there&apos;s no formal support team — but I read every
+        message and usually reply within a few days.
+      </div>
     </div>
   );
 };
