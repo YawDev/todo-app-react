@@ -1,13 +1,13 @@
 .hero-section {
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
+  width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #808080, #bdc6cf, #e6dfdf);
+  background: var(--gradient-hero);
   color: white;
   text-align: center;
   overflow: hidden;
@@ -18,10 +18,26 @@
   padding: 0 20px;
 }
 
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  margin-bottom: 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
 .hero-content h1 {
   font-size: 2.8rem;
   margin-bottom: 1rem;
-  font-weight: 700;
+  font-weight: 800;
+  color: #ffffff;
 }
 
 .hero-content p {
@@ -42,24 +58,47 @@
   border: none;
   border-radius: 25px;
   background-color: white;
-  color: #3b393c;
-  font-weight: bold;
+  color: var(--color-brand-dark);
+  font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 6px 18px rgba(35, 50, 64, 0.2);
   transition: all 0.3s ease-in-out;
 }
 
 .hero-btn:hover {
-  background-color: #7c7a7a;
-  color: #ffffff;
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand-darker);
+  transform: translateY(-2px);
 }
 
 .hero-btn.secondary {
   background-color: transparent;
   border: 2px solid white;
   color: white;
+  box-shadow: none;
 }
 
 .hero-btn.secondary:hover {
   background-color: white;
-  color: #363637;
+  color: var(--color-brand-dark);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    /* app-main adds 64px top padding for the hamburger on mobile */
+    min-height: calc(100vh - 64px);
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

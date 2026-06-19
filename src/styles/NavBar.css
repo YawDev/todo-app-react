@@ -1,59 +1,258 @@
-.topNavBar {
+/* =====================================================================
+   Collapsible sidebar navigation (steel-blue / deep navy)
+   ===================================================================== */
+.sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  height: 60px;
-  background-color: #f5f2f2; /* Soft white */
-  color: #111;
+  height: 100vh;
+  width: 248px;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  box-sizing: border-box;
+  background: var(--gradient-sidebar);
+  color: #fff;
+  font-family: var(--font-sans);
+  box-shadow: 2px 0 18px rgba(35, 50, 64, 0.18);
+  z-index: 1100;
+  transition: width 0.25s ease;
+}
+
+.sidebar.collapsed {
+  width: 78px;
+}
+
+/* Header / brand --------------------------------------------------- */
+.sidebar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  z-index: 1000;
-  font-family: "Montserrat", sans-serif;
+  margin-bottom: 28px;
+  padding: 4px;
 }
 
-.topNavBar .logo {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #111;
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
 }
 
-.topNavBar ul {
-  list-style-type: none;
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.sidebar.collapsed .sidebar-brand {
+  display: none;
+}
+
+.sidebar-logo {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--color-brand);
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(74, 112, 139, 0.5);
+}
+
+.sidebar-brand-text {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.sidebar-toggle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+/* Nav items -------------------------------------------------------- */
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-nav ul,
+.sidebar-footer ul {
+  list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 30px;
-  margin-right: 30px; /* Reduced from 60px to 30px */
-  justify-content: flex-end;
-  flex: 1;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.topNavBar ul li a {
-  color: #111;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px;
-  display: inline-block;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.topNavBar ul li a:hover {
-  background-color: #eaeaea;
-  color: black;
-  border-radius: 4px;
-}
-
-.content {
-  margin-top: 60px;
-  padding: 20px;
-}
-
-.topNavBar-left,
-.topNavBar-right {
+.sidebar-link {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+/* Toggle renders as a <button> — reset native styling to match the links */
+button.sidebar-link {
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.sidebar-link.active {
+  background: var(--color-brand);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(74, 112, 139, 0.45);
+}
+
+.sidebar-icon {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  font-size: 20px;
+}
+
+.sidebar-label {
+  transition: opacity 0.15s ease;
+}
+
+.sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  gap: 0;
+  padding: 12px;
+}
+
+.sidebar.collapsed .sidebar-label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* Footer (logout) -------------------------------------------------- */
+.sidebar-footer {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-link.logout:hover {
+  background: rgba(192, 68, 75, 0.9);
+  color: #fff;
+}
+
+/* Mobile drawer trigger + overlay (hidden on desktop) ------------- */
+.sidebar-mobile-toggle {
+  display: none;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile: sidebar becomes an off-canvas drawer                        */
+/* ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+  }
+
+  /* Desktop collapse has no meaning on mobile — always full width */
+  .sidebar.collapsed {
+    width: 260px;
+  }
+
+  .sidebar.collapsed .sidebar-brand {
+    display: flex;
+  }
+
+  .sidebar.collapsed .sidebar-label {
+    opacity: 1;
+    width: auto;
+  }
+
+  .sidebar.collapsed .sidebar-link {
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 4px 0 40px rgba(20, 30, 40, 0.45);
+  }
+
+  /* Chevron toggle is replaced by the hamburger + overlay on mobile */
+  .sidebar .sidebar-toggle {
+    display: none;
+  }
+
+  .sidebar-mobile-toggle {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    background: var(--color-brand);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 1090;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 30, 40, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
+    z-index: 1095;
+  }
+
+  .sidebar-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

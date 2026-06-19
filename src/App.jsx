@@ -1,5 +1,7 @@
-import "./styles/Todo.css";
+import "./styles/theme.css";
+import "./styles/dark.theme.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/Todo.css";
 import TopNavBarComponent from "./components/TopNavBarComponent";
 import { useState, useEffect } from "react";
 import FooterComponent from "./components/FooterComponent";
@@ -20,6 +22,8 @@ function App() {
   const [listId, setListId] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userContext, setUserContext] = useState(null);
+  const [navCollapsed, setNavCollapsed] = useState(false);
+  const [navMobileOpen, setNavMobileOpen] = useState(false);
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -67,20 +71,30 @@ function App() {
         }}
       >
         <Router>
-          <TopNavBarComponent />
+          <div className={`app-shell ${navCollapsed ? "nav-collapsed" : ""}`}>
+            <TopNavBarComponent
+              collapsed={navCollapsed}
+              onToggle={() => setNavCollapsed((c) => !c)}
+              mobileOpen={navMobileOpen}
+              onMobileToggle={() => setNavMobileOpen((o) => !o)}
+              onMobileClose={() => setNavMobileOpen(false)}
+            />
 
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/account" element={<Account />} />
+            <main className="app-main">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/account" element={<Account />} />
 
-            <Route path="/todos" element={<Todo />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<Privacy />} />
-          </Routes>
-          <FooterComponent />
+                <Route path="/todos" element={<Todo />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
+              </Routes>
+            </main>
+            <FooterComponent />
+          </div>
         </Router>
       </AppContext.Provider>
     </>
