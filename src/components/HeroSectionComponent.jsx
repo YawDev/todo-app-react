@@ -16,9 +16,9 @@ const HeroSectionComponent = () => {
           <h1>Organize Your Day, Your Way</h1>
           <p>Plan smarter. Stay focused. Crush your goals.</p>
           <div className="hero-buttons">
-            <a href="/account" className="btn hero-btn">
+            {/* <a href="/account" className="btn hero-btn">
               View Account
-            </a>
+            </a> */}
             <a href="/todos" className="btn hero-btn secondary">
               Start keeping track of your tasks
             </a>

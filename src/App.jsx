@@ -83,7 +83,7 @@ function App() {
             <main className="app-main">
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/account" element={<Account />} />
+                {/* <Route path="/account" element={<Account />} /> */}
 
                 <Route path="/todos" element={<Todo />} />
                 <Route path="/login" element={<Login />} />
