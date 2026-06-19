@@ -113,7 +113,7 @@ const SideNavBarComponent = ({
                   icon={<FiCheckSquare />}
                   label="Manage Todos"
                 />
-                <NavItem to="/account" icon={<FiUser />} label="Account" />
+                {/* <NavItem to="/account" icon={<FiUser />} label="Account" /> */}
               </>
             )}
           </ul>
