@@ -1,6 +1,8 @@
+import { API_BASE_URL } from "./apiBase";
+
 export async function LoginAPI(user) {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/Login", {
+    const response = await fetch(`${API_BASE_URL}/Login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +19,7 @@ export async function LoginAPI(user) {
 
 export async function RegisterAPI(user) {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/Register", {
+    const response = await fetch(`${API_BASE_URL}/Register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +39,7 @@ export async function RegisterAPI(user) {
 
 export async function LogoutAPI() {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/Logout", {
+    const response = await fetch(`${API_BASE_URL}/Logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +60,7 @@ export async function LogoutAPI() {
 
 export async function AuthStatusAPI() {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/AuthStatus", {
+    const response = await fetch(`${API_BASE_URL}/AuthStatus`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
