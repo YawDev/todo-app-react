@@ -4,7 +4,9 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-The **React 19 + Vite** frontend SPA for a two-service Todo app. It is a pure client tier — all persistence and business logic live in the separate Go backend ([todo-web-api](https://github.com/YawDev/todo-web-api)), reached at `http://localhost:8080/api/v1`. This SPA runs at `http://localhost:5173`.
+The **React 19 + Vite** frontend SPA for **Todo Manager** — a two-service portfolio project. It is a pure client tier; all persistence and business logic live in the separate Go backend ([todo-web-api](https://github.com/YawDev/todo-web-api)), reached at `https://api.todo-manager.app/api/v1`. This SPA is served from `https://todo-manager.app`.
+
+For local development the backend runs at `http://localhost:8080/api/v1` and the SPA at `http://localhost:5173`.
 
 ## Commands
 
@@ -33,7 +35,7 @@ There is no test suite configured.
 - Functional components + hooks only.
 - Every API call uses `fetch` with `credentials: "include"` so the browser sends the backend's HttpOnly auth cookies. **Keep this on every request** or auth breaks.
 - The frontend never reads or stores JWTs — tokens are HttpOnly cookies managed entirely by the backend. Don't add token-in-localStorage logic.
-- API base URL is currently hardcoded (`http://localhost:8080/api/v1`) in both `GoService*.js` files. If changing environments, update both — or migrate to a `VITE_API_BASE_URL` env var.
+- API base URL is configured in both `GoService*.js` files. Update both when switching environments.
 - Styling is mixed (Tailwind 4 + Bootstrap 5 + custom CSS). Match the approach already used in the file you're editing.
 
 ## Backend contract (important)
@@ -41,7 +43,7 @@ There is no test suite configured.
 - One list per user. `GET /GetList/{userID}` returns `{ id, user_id, tasks: [...] }`.
 - Task shape: `{ id, title, description, isCompleted, list_id, created_at }`.
 - Protected endpoints return `401` when the session is invalid; the client modules already special-case `data.status === 401` / `404`.
-- CORS on the backend is locked to origin `http://localhost:5173` with credentials — keep the dev server on that port.
+- CORS on the backend is locked to the SPA origin with credentials — keep origins in sync.
 
 ## Gotchas
 

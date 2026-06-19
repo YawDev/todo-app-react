@@ -1,6 +1,6 @@
-# Todo App — React Frontend
+# Todo Manager — React Frontend
 
-A single-page Todo application built with **React 19** and **Vite**. It is the client tier of a two-service system: this SPA talks to a separate **Go (Gin) REST API** ([todo-web-api](https://github.com/YawDev/todo-web-api)) that handles authentication, persistence, and business logic.
+A single-page task management application built with **React 19** and **Vite**. It is the client tier of a two-service system: this SPA talks to a separate **Go (Gin) REST API** ([todo-web-api](https://github.com/YawDev/todo-web-api)) that handles authentication, persistence, and business logic.
 
 Users register, log in, and manage a personal todo list (one list per user) with create / edit / complete / delete operations, pagination, and filtering. Authentication is cookie-based (HttpOnly JWT access + refresh tokens issued by the backend).
 
@@ -8,17 +8,17 @@ Users register, log in, and manage a personal todo list (one list per user) with
 
 ## Tech Stack
 
-| Concern | Choice |
-| --- | --- |
-| UI library | React 19 |
-| Build tool / dev server | Vite 6 |
-| Routing | React Router DOM 7 |
-| Styling | Tailwind CSS 4, Bootstrap 5 / React-Bootstrap, custom CSS |
-| Icons | Heroicons, react-icons, react-bootstrap-icons |
-| Animation | Framer Motion |
-| Loaders | react-spinners |
-| State sharing | React Context (`AppContext`) |
-| HTTP | native `fetch` (with `credentials: "include"`) |
+| Concern                 | Choice                                                    |
+| ----------------------- | --------------------------------------------------------- |
+| UI library              | React 19                                                  |
+| Build tool / dev server | Vite 6                                                    |
+| Routing                 | React Router DOM 7                                        |
+| Styling                 | Tailwind CSS 4, Bootstrap 5 / React-Bootstrap, custom CSS |
+| Icons                   | Heroicons, react-icons, react-bootstrap-icons             |
+| Animation               | Framer Motion                                             |
+| Loaders                 | react-spinners                                            |
+| State sharing           | React Context (`AppContext`)                              |
+| HTTP                    | native `fetch` (with `credentials: "include"`)            |
 
 ---
 
@@ -29,12 +29,12 @@ This frontend is purely a presentation/client layer. All state that matters is o
 ```mermaid
 graph LR
     subgraph Browser
-        SPA["React SPA (Vite)<br/>localhost:5173"]
+        SPA["Todo Manager SPA (Vite)<br/>todo-manager.app"]
         Cookies["HttpOnly Cookies<br/>access_token / refresh_token"]
     end
 
-    subgraph "Go REST API (todo-web-api)"
-        API["Gin Router<br/>localhost:8080/api/v1"]
+    subgraph "Todo Web API (todo-web-api)"
+        API["Gin Router<br/>api.todo-manager.app/api/v1"]
         DB[("SQLite / MySQL<br/>via GORM")]
     end
 
@@ -46,9 +46,9 @@ graph LR
 
 Key contract points:
 
-- **Base URL** is `http://localhost:8080/api/v1` (hardcoded in the `src/utils/GoService*.js` modules).
+- **Base URL** is `https://api.todo-manager.app/api/v1` (configured in `src/utils/GoService*.js`).
 - Every request uses `credentials: "include"` so the browser attaches the HttpOnly auth cookies set by the backend.
-- The backend must allow the SPA origin (`http://localhost:5173`) with `AllowCredentials: true` in its CORS config — it does.
+- The backend must allow the SPA origin with `AllowCredentials: true` in its CORS config — it does.
 
 ---
 
@@ -72,14 +72,14 @@ src/
 
 Routes are declared in [src/App.jsx](src/App.jsx):
 
-| Path | Page |
-| --- | --- |
-| `/` | HomePage |
-| `/todos` | Todo (the main app) |
-| `/login` | Login |
-| `/register` | Register |
-| `/account` | Account |
-| `/about`, `/contact`, `/privacy` | Static pages |
+| Path                             | Page                |
+| -------------------------------- | ------------------- |
+| `/`                              | HomePage            |
+| `/todos`                         | Todo (the main app) |
+| `/login`                         | Login               |
+| `/register`                      | Register            |
+| `/account`                       | Account             |
+| `/about`, `/contact`, `/privacy` | Static pages        |
 
 ### Shared State (`AppContext`)
 
@@ -102,23 +102,23 @@ All network calls live in two thin modules so the rest of the UI never touches `
 
 **`src/utils/GoServiceAuth.js`**
 
-| Function | Method | Endpoint |
-| --- | --- | --- |
-| `LoginAPI` | POST | `/Login` |
-| `RegisterAPI` | POST | `/Register` |
-| `LogoutAPI` | POST | `/Logout` |
-| `AuthStatusAPI` | GET | `/AuthStatus` |
+| Function        | Method | Endpoint      |
+| --------------- | ------ | ------------- |
+| `LoginAPI`      | POST   | `/Login`      |
+| `RegisterAPI`   | POST   | `/Register`   |
+| `LogoutAPI`     | POST   | `/Logout`     |
+| `AuthStatusAPI` | GET    | `/AuthStatus` |
 
 **`src/utils/GoServiceTodo.js`**
 
-| Function | Method | Endpoint |
-| --- | --- | --- |
-| `GetTodoListAPI` | GET | `/GetList/{userID}` |
-| `CreateListAPI` | POST | `/CreateList/{userID}` |
-| `AddTaskToListAPI` | POST | `/CreateTask/{listID}` |
-| `UpdateTaskAPI` | PUT | `/UpdateTask/{taskID}` |
-| `UpdateTaskStatusAPI` | PUT | `/TaskCompleted/{taskID}` |
-| `DeleteTaskAPI` | DELETE | `/DeleteTask/{taskID}` |
+| Function              | Method | Endpoint                  |
+| --------------------- | ------ | ------------------------- |
+| `GetTodoListAPI`      | GET    | `/GetList/{userID}`       |
+| `CreateListAPI`       | POST   | `/CreateList/{userID}`    |
+| `AddTaskToListAPI`    | POST   | `/CreateTask/{listID}`    |
+| `UpdateTaskAPI`       | PUT    | `/UpdateTask/{taskID}`    |
+| `UpdateTaskStatusAPI` | PUT    | `/TaskCompleted/{taskID}` |
+| `DeleteTaskAPI`       | DELETE | `/DeleteTask/{taskID}`    |
 
 ### Authentication flow
 
@@ -127,8 +127,8 @@ The backend issues JWTs as **HttpOnly cookies** — the SPA never reads or store
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant SPA as React SPA
-    participant API as Go API
+    participant SPA as Todo Manager SPA
+    participant API as Todo Web API
 
     U->>SPA: Enter credentials
     SPA->>API: POST /Login (credentials: include)
@@ -150,7 +150,7 @@ sequenceDiagram
 sequenceDiagram
     participant Todo as Todo page
     participant Ctx as AppContext
-    participant API as Go API
+    participant API as Todo Web API
 
     Todo->>Ctx: read isLoggedIn + userContext.id
     Todo->>API: GetTodoListAPI(userID)
@@ -171,19 +171,26 @@ Returned by the backend (see [models](https://github.com/YawDev/todo-web-api/blo
   "id": 1,
   "user_id": 1,
   "tasks": [
-    { "id": 1, "title": "…", "description": "…", "isCompleted": false, "list_id": 1, "created_at": "…" }
-  ]
+    {
+      "id": 1,
+      "title": "…",
+      "description": "…",
+      "isCompleted": false,
+      "list_id": 1,
+      "created_at": "…",
+    },
+  ],
 }
 ```
 
 ---
 
-## Getting Started
+## Getting Started (local dev)
 
 ### Prerequisites
 
 - Node.js 18+
-- The backend API running locally on `http://localhost:8080` — see [todo-web-api](https://github.com/YawDev/todo-web-api).
+- The backend API running locally — see [todo-web-api](https://github.com/YawDev/todo-web-api).
 
 ### Install & run
 
@@ -194,17 +201,17 @@ npm run dev      # start Vite dev server at http://localhost:5173
 
 ### Scripts
 
-| Script | Description |
-| --- | --- |
-| `npm run dev` | Start the dev server with HMR |
-| `npm run build` | Production build to `dist/` |
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the dev server with HMR        |
+| `npm run build`   | Production build to `dist/`          |
 | `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint |
+| `npm run lint`    | Run ESLint                           |
 
-> **Note:** The API base URL is currently hardcoded as `http://localhost:8080/api/v1` in `src/utils/GoServiceAuth.js` and `src/utils/GoServiceTodo.js`. To target a different backend, update those values (a future improvement is to move this to a Vite env variable, e.g. `VITE_API_BASE_URL`).
+> **Note:** The API base URL is configured in `src/utils/GoServiceAuth.js` and `src/utils/GoServiceTodo.js`. For local dev, set it to `http://localhost:8080/api/v1`; for production, point it at `https://api.todo-manager.app/api/v1` (or migrate to a `VITE_API_BASE_URL` env variable).
 
 ---
 
 ## Related
 
-- **Backend API:** [todo-web-api](https://github.com/YawDev/todo-web-api) (Go + Gin + GORM)
+- **Backend API:** [todo-web-api](https://github.com/YawDev/todo-web-api) — Todo Web API (Go + Gin + GORM)
