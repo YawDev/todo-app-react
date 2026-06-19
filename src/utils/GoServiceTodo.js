@@ -1,15 +1,14 @@
+import { API_BASE_URL } from "./apiBase";
+
 export async function GetTodoListAPI(userID) {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/v1/GetList/${userID}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/GetList/${userID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
 
     const data = await response.json();
     if (data?.status === 401) {
@@ -32,16 +31,13 @@ export async function GetTodoListAPI(userID) {
 
 export async function CreateListAPI(userID) {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/v1/CreateList/${userID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/CreateList/${userID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
 
     const data = await response.json();
     if (data?.status === 401) throw new Error("Invalid credentials");
@@ -57,17 +53,14 @@ export async function CreateListAPI(userID) {
 
 export async function AddTaskToListAPI(listID, task) {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/v1/CreateTask/${listID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(task),
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/CreateTask/${listID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(task),
+    });
 
     const data = await response.json();
     if (data?.status === 401) throw new Error("Invalid credentials");
@@ -83,17 +76,14 @@ export async function AddTaskToListAPI(listID, task) {
 
 export async function UpdateTaskAPI(taskID, task) {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/v1/UpdateTask/${taskID}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(task),
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/UpdateTask/${taskID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(task),
+    });
 
     const data = await response.json();
     if (data?.status === 401) throw new Error("Invalid credentials");
@@ -109,17 +99,14 @@ export async function UpdateTaskAPI(taskID, task) {
 
 export async function UpdateTaskStatusAPI(taskID, updateRequest) {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/v1/TaskCompleted/${taskID}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(updateRequest),
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/TaskCompleted/${taskID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(updateRequest),
+    });
 
     const data = await response.json();
     if (data?.status === 401) throw new Error("Invalid credentials");
@@ -135,16 +122,13 @@ export async function UpdateTaskStatusAPI(taskID, updateRequest) {
 
 export async function DeleteTaskAPI(taskID) {
   try {
-    const response = await fetch(
-      `http://localhost:8080/api/v1/DeleteTask/${taskID}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/DeleteTask/${taskID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
 
     const data = await response.json();
     if (data.status === 401) throw new Error("Invalid credentials");
