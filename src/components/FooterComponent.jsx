@@ -13,8 +13,13 @@ export default function FooterComponent() {
       {showFooter && (
         <div className="footerSection">
           <p>
-            <img src={footerImg} className="footer-img" alt="Todo App logo" />
-            Todo App
+            <img
+              src={footerImg}
+              className="footer-img"
+              alt="Task Organizer logo"
+            />
+            Todo Manager
+            <span className="footer-year">© {new Date().getFullYear()}</span>
           </p>
           <div className="footer-links">
             <a href="/about">About</a>

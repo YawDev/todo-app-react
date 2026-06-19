@@ -83,7 +83,7 @@ const SideNavBarComponent = ({
             <span className="sidebar-logo">
               <FiCheckSquare />
             </span>
-            <span className="sidebar-brand-text">Todo App</span>
+            <span className="sidebar-brand-text">Todo Manager</span>
           </div>
           <button
             className="sidebar-toggle"
