@@ -13,47 +13,53 @@
   /* Make native UI (scrollbars, form controls) render dark */
   color-scheme: dark;
 
-  /* Brand — mid-steel fill that sits calmly on dark; hover LIGHTENS */
-  --color-brand: #4a708b; /* primary fill (buttons, active nav, avatar) */
-  --color-brand-dark: #5e83a0; /* hover — lighter than base on dark */
-  --color-brand-darker: #7299bd; /* deepest emphasis / text on dark surfaces */
-  --color-brand-light: #8aa8c2; /* secondary / links */
-  --color-brand-muted: #54697a; /* borders / soft accents */
-  --color-brand-soft: #243441; /* tints / badge fills */
+  /* Brand — navy-shifted; hover LIGHTENS on dark surfaces */
+  --color-brand: #3d6480;        /* primary fill — deeper navy-steel */
+  --color-brand-dark: #4f7a99;   /* hover — lighter than base */
+  --color-brand-darker: #6b94b5; /* text emphasis on dark */
+  --color-brand-light: #7da8c8;  /* secondary / links */
+  --color-brand-muted: #3d5567;  /* borders / soft accents */
+  --color-brand-soft: #182633;   /* tints / badge fills */
 
-  /* Ink (text) — near-white → muted steel */
-  --color-ink: #eaf0f5; /* headings */
-  --color-ink-soft: #d3dfe8; /* strong text */
-  --color-body: #b3c1cc; /* body text */
-  --color-muted: #8597a3; /* secondary text */
+  /* Ink (text) — near-white → muted steel-navy */
+  --color-ink: #e6edf4;      /* headings */
+  --color-ink-soft: #ccdae6; /* strong text */
+  --color-body: #a8bfcf;     /* body text */
+  --color-muted: #6e8898;    /* secondary text / year */
 
-  /* Surfaces — deep steel navy, layered light → dark */
-  --color-bg: #111a22; /* page background */
-  --color-surface: #1a242e; /* cards / panels */
-  --color-surface-alt: #212e39; /* subtle fills / inputs */
-  --color-line: #2d3b47; /* hairlines */
-  --color-footer: #0c141a; /* footer — deepest shade */
+  /* Surfaces — deeper navy, clearly layered */
+  --color-bg: #0c1520;          /* page background — true navy-dark */
+  --color-surface: #131e2b;     /* cards / panels */
+  --color-surface-alt: #1a2836; /* subtle fills / inputs */
+  --color-line: #243040;        /* hairlines */
+  --color-footer: #08101a;      /* footer — deepest shade */
 
-  /* Semantic — nudged lighter for contrast on dark */
+  /* Semantic */
   --color-success: #3fa183;
   --color-success-dark: #2f8f6f;
-  --color-success-soft: #1e3329; /* dark tint fill */
+  --color-success-soft: #182e26;
   --color-danger: #d36771;
   --color-danger-dark: #c0444b;
-  --color-danger-soft: #3a2528; /* dark tint fill */
+  --color-danger-soft: #321f22;
   --color-warning: #d2a85a;
-  --color-warning-soft: #382f16; /* dark tint fill */
+  --color-warning-soft: #302810;
 
-  /* Gradient + elevation (shadows go heavier on dark) */
-  --gradient-brand: linear-gradient(
-    135deg,
-    #1c2e3a 0%,
-    #355169 55%,
-    #4a708b 100%
-  );
-  --gradient-sidebar: linear-gradient(180deg, #18222c 0%, #11191f 100%);
-  --gradient-hero: linear-gradient(135deg, #0f1922 0%, #1b2e3b 55%, #2c4659 100%);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
+  /* Gradients — navy-anchored */
+  --gradient-brand: linear-gradient(135deg, #152130 0%, #274a65 55%, #3d6480 100%);
+  --gradient-sidebar: linear-gradient(180deg, #111e2a 0%, #0c1520 100%);
+  --gradient-hero: linear-gradient(135deg, #080f18 0%, #111e2b 55%, #1e3448 100%);
+
+  /* Elevation — heavier on deep navy */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.65);
+}
+
+/* Footer — flat, no glass in dark mode */
+:root[data-theme="dark"] .footerSection {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border-top: none;
 }

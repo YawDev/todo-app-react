@@ -5,8 +5,11 @@
    ===================================================================== */
 .footerSection {
   margin-left: 248px;
-  background: var(--color-footer);
-  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  box-shadow: none;
+  color: var(--color-muted);
   padding: 18px 40px;
   font-family: var(--font-sans);
   font-size: 14px;
@@ -15,7 +18,7 @@
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
   transition: margin-left 0.25s ease;
 }
 
@@ -29,7 +32,13 @@
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: #fff;
+  color: var(--color-ink-soft);
+}
+
+.footer-year {
+  font-weight: 400;
+  color: var(--color-muted);
+  margin-left: 4px;
 }
 
 .footer-logo,
@@ -46,7 +55,7 @@
 }
 
 .footer-links a {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--color-muted);
   text-decoration: none;
   font-weight: 600;
   padding: 6px 12px;
@@ -55,8 +64,8 @@
 }
 
 .footer-links a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: var(--color-brand-soft);
+  color: var(--color-brand-dark);
 }
 
 /* Support ---------------------------------------------------------- */
@@ -67,7 +76,7 @@
 }
 
 .footer-support .support-link {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--color-muted);
   font-weight: 600;
   font-size: 15px;
   text-decoration: none;
@@ -77,8 +86,8 @@
 }
 
 .footer-support .support-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: var(--color-brand-soft);
+  color: var(--color-brand-dark);
 }
 
 .footer-support .chat-icon {
