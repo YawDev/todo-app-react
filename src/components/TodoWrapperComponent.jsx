@@ -238,10 +238,10 @@ export default function TodoWrapperComponent() {
       </div>
     ) : (
       <>
-        {/* <h1> Lets get started on tracking your productivity.</h1>
+        <h1> Lets get started on tracking your productivity.</h1>
         <button className="createNewListBtn" onClick={handleAddNewList}>
-          Create New List
-        </button> */}
+          Create a Todo
+        </button>
       </>
     )
   ) : (
